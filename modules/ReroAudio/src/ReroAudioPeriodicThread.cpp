@@ -45,18 +45,21 @@ ReroAudioPeriodicThread::ReroAudioPeriodicThread(std::string _configFile) :
 
 
 ReroAudioPeriodicThread::~ReroAudioPeriodicThread() {
+    delete client;
 }
 
 
 bool ReroAudioPeriodicThread::configure(yarp::os::ResourceFinder &rf) {
-
 	/* ===========================================================================
 	 *  Pull variables for this module from the resource finder.
 	 * =========================================================================== */
 	yInfo( "Loading Configuration File." );
-	numMics      = rf.findGroup("robotspec").check("numMics",     yarp::os::Value(2),     "number of mics (int)"                 ).asInt();
-	samplingRate     = rf.findGroup("sampling").check("samplingRate",     yarp::os::Value(48000),   "sampling rate of mics (int)"            ).asInt();
-	numFrameSamples  = rf.findGroup("sampling").check("numFrameSamples",  yarp::os::Value(4096),    "number of frame samples received (int)" ).asInt();
+	numMics      = rf.findGroup("audio").check("numMics",     yarp::os::Value(2),     "number of mics (int)"                 ).asInt();
+	samplingRate     = rf.findGroup("audio").check("samplingRate",     yarp::os::Value(48000),   "sampling rate of mics (int)"            ).asInt();
+	numFrameSamples  = rf.findGroup("audio").check("numFrameSamples",  yarp::os::Value(4096),    "number of frame samples received (int)" ).asInt();
+    grpcHost = rf.findGroup("server").check("host",  yarp::os::Value("0.0.0.0"),    "grpc server address" ).asString();
+    grpcPort = rf.findGroup("server").check("port",  yarp::os::Value("50051"),    "grpc server port" ).asString();
+
 
 	/* ===========================================================================
 	 *  Initialize time counters to zero.
@@ -68,10 +71,18 @@ bool ReroAudioPeriodicThread::configure(yarp::os::ResourceFinder &rf) {
 	totalTime         = 0.0;
 	totalIterations   = 0;
 
+    client = new AudioClient(
+            grpc::CreateChannel(grpcHost+":"+grpcPort, grpc::InsecureChannelCredentials()),
+            samplingRate,
+            numMics,
+            "paInt16",
+            numFrameSamples,
+            2
+            );
 
-	/* =========================================================================== 
-	 *  Print the resulting variables to the console.
-	 * =========================================================================== */
+    /* ===========================================================================
+     *  Print the resulting variables to the console.
+     * =========================================================================== */
 	yInfo( "\t                  [SAMPLING]                  "                                    );
 	yInfo( "\t ============================================ "                                    );
 	yInfo( "\t Sampling Rate                    : %d Hz",    samplingRate                        );
@@ -98,18 +109,21 @@ bool ReroAudioPeriodicThread::threadInit() {
 	yInfo("Initialization of the processing thread correctly ended. Elapsed Time: %f.", stopTime - startTime);
 	startTime = stopTime;
 
+	client->StreamAudioAsync();
 	return true;
 }
 
 
 void ReroAudioPeriodicThread::threadRelease() {
+    //stop audio stream
+    client->StopStream();
 
-	//-- Stop all threads.
+    //-- Stop all threads.
 	outAudioPort.interrupt();
 	
 	//-- Close the threads.
 	outAudioPort.close();
-	
+
 	//-- Print thread stats.
 	endOfProcessingStats();	
 }

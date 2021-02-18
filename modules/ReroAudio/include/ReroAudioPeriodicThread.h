@@ -86,6 +86,11 @@ private:
 	 *    Objects passed around to encapsulated objects.
 	 * =========================================================================== */
 	yarp::sig::Sound* outputSound;
+
+    /* ===========================================================================
+     *  AudioClient for connecting to gRPC server
+     * =========================================================================== */
+    AudioClient* client;
 	
 	/* ===========================================================================
 	 *  Variables received from the resource finder.
@@ -93,6 +98,8 @@ private:
 	int samplingRate;
 	int numFrameSamples;
 	int numMics;
+	std::string grpcHost;
+	std::string grpcPort;
 
 public:
 	/* ===========================================================================
