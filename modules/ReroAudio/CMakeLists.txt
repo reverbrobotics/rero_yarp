@@ -21,12 +21,21 @@ add_executable(
     
 target_include_directories(
     ${PROJECT_NAME}
-    PRIVATE ${PROJECT_SOURCE_DIR}/include
+    PRIVATE
+    ${PROJECT_SOURCE_DIR}/include
+    ${PROJECT_SOURCE_DIR}/../../lib/client/include
+    ${PROJECT_SOURCE_DIR}/../../lib/client
 )
+
+message(${PROJECT_SOURCE_DIR})
     
 target_link_libraries(
     ${PROJECT_NAME}
     ${YARP_LIBRARIES}
+    ${_REFLECTION}
+    ${_GRPC_GRPCPP}
+    ${_PROTOBUF_LIBPROTOBUF}
+    ${PROJECT_SOURCE_DIR}/../../lib/client/libReroClient.a
 )
     
 install(

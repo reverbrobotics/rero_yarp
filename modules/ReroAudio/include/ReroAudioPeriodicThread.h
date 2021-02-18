@@ -41,6 +41,18 @@
 #include <yarp/os/PeriodicThread.h>
 #include <yarp/os/Log.h>
 
+#include <grpcpp/grpcpp.h>
+#include <AudioClient.h>
+
+using grpc::Status;
+using grpc::Channel;
+using grpc::ClientContext;
+using grpc::ClientReader;
+
+using rero::StreamRequest;
+using rero::AudioStreamer;
+using rero::Audio;
+
 typedef yarp::os::BufferedPort< yarp::sig::Sound  > yarpSoundBuffer;
 
 class ReroAudioPeriodicThread : public yarp::os::PeriodicThread {
