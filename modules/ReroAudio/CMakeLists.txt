@@ -1,0 +1,36 @@
+# Copyright: (C) 2020 Reverb Robotics Inc.
+# Authors: Lukas Grasse <lukas@reverbrobotics.ca>
+# CopyPolicy: Released under the terms of the GNU GPL v2.0.
+
+cmake_minimum_required(VERSION 3.5)
+
+set(MODULE_NAME reroAudio)
+project(${MODULE_NAME} LANGUAGES CXX C)
+
+file(GLOB FOLDER_SOURCE src/*.cpp src/*.cc src/*.c)
+file(GLOB FOLDER_HEADER include/*.h)
+
+source_group("Source Files" FILES ${FOLDER_SOURCE})
+source_group("Header Files" FILES ${FOLDER_HEADER})
+
+add_executable(
+    ${PROJECT_NAME}
+    ${FOLDER_SOURCE}
+    ${FOLDER_HEADER}
+)
+    
+target_include_directories(
+    ${PROJECT_NAME}
+    PRIVATE ${PROJECT_SOURCE_DIR}/include
+)
+    
+target_link_libraries(
+    ${PROJECT_NAME}
+    ${YARP_LIBRARIES}
+)
+    
+install(
+    TARGETS
+    ${PROJECT_NAME}
+    DESTINATION bin    
+)
