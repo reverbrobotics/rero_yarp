@@ -58,8 +58,14 @@ bool ReroAudioPeriodicThread::configure(yarp::os::ResourceFinder &rf) {
 	samplingRate     = rf.findGroup("audio").check("samplingRate",     yarp::os::Value(48000),   "sampling rate of mics (int)"            ).asInt();
 	numFrameSamples  = rf.findGroup("audio").check("numFrameSamples",  yarp::os::Value(4096),    "number of frame samples received (int)" ).asInt();
     grpcHost = rf.findGroup("server").check("host",  yarp::os::Value("0.0.0.0"),    "grpc server address" ).asString();
-    grpcPort = rf.findGroup("server").check("port",  yarp::os::Value("50051"),    "grpc server port" ).asString();
+    grpcPort = rf.findGroup("server").check("port",  yarp::os::Value("50052"),    "grpc server port" ).asString();
+    grpcBufferSize = rf.findGroup("server").check("bufferSize",  yarp::os::Value(3),    "grpc audio buffer size" ).asInt();
 
+
+    /* ===========================================================================
+     *  Set period to audio rate
+     * =========================================================================== */
+    setPeriod(numFrameSamples*1.0/samplingRate);
 
 	/* ===========================================================================
 	 *  Initialize time counters to zero.
@@ -77,7 +83,8 @@ bool ReroAudioPeriodicThread::configure(yarp::os::ResourceFinder &rf) {
             numMics,
             "paInt16",
             numFrameSamples,
-            2
+            2,
+            grpcBufferSize
             );
 
     /* ===========================================================================
@@ -87,6 +94,8 @@ bool ReroAudioPeriodicThread::configure(yarp::os::ResourceFinder &rf) {
 	yInfo( "\t ============================================ "                                    );
 	yInfo( "\t Sampling Rate                    : %d Hz",    samplingRate                        );
 	yInfo( "\t Number Samples per Frame         : %d",       numFrameSamples                     );
+    yInfo( "\t gRPC Host         : %s",                      grpcHost.c_str()                            );
+    yInfo( "\t gRPC Port         : %s",                      grpcPort.c_str()                            );
 	yInfo( " " );
 
 	return true;
@@ -99,17 +108,18 @@ bool ReroAudioPeriodicThread::threadInit() {
 	 *  Initialize all ports. If any fail to open, return false to 
 	 *    let RFModule know initialization was unsuccessful.
 	 * =========================================================================== */
-
 	if (!outAudioPort.open(getName("/rawAudio:o").c_str())) {
 		yError("Unable to open port for sending audio");
 		return false;
 	}
 
+    client->StreamAudioAsync();
+
 	stopTime = yarp::os::Time::now();
 	yInfo("Initialization of the processing thread correctly ended. Elapsed Time: %f.", stopTime - startTime);
 	startTime = stopTime;
 
-	client->StreamAudioAsync();
+
 	return true;
 }
 
@@ -146,10 +156,13 @@ void ReroAudioPeriodicThread::setInputPortName(std::string InpPort) {
 }
 
 
-void ReroAudioPeriodicThread::run() {    
-	
-	if (outAudioPort.getOutputCount()) {
+void ReroAudioPeriodicThread::run() {
+    char* buffer = this->client->GetBuffer();
 
+	if (outAudioPort.getOutputCount()) {
+	    outputSound = &outAudioPort.prepare();
+
+        copyGRPCBufferToSound(buffer, outputSound);
 
 		//-- Write data to outgoing ports.
 		publishOutPorts();
@@ -158,8 +171,22 @@ void ReroAudioPeriodicThread::run() {
 		timeTotal  = timeDelay + timeReading + timeProcessing + timeTransmission;
 		totalTime += timeTotal;
 		totalIterations++;
-		yInfo("End of Loop %d, TS %d |  Delay  %f  |  Reading  %f  |  Processing  %f  |  Transmission  %f  |  Total  %f  |", totalIterations, timeStamp.getCount(), timeDelay, timeReading, timeProcessing, timeTransmission, timeTotal);
+		yInfo("Sent audio frame %d with timestamp %d", totalIterations, timeStamp.getCount());
 	}
+
+	timeStamp.update();
+}
+
+void ReroAudioPeriodicThread::copyGRPCBufferToSound(char* buffer, yarp::sig::Sound* sound) {
+    auto sampleBuffer = reinterpret_cast<short*>(buffer);
+
+    sound->resize(numFrameSamples, numMics);
+    sound->setFrequency(samplingRate);
+
+    for(int i=0; i<numFrameSamples*numMics; i++) {
+        // set sample, /2 is index and %2 is channel for interleaved audio
+        sound->setSafe(sampleBuffer[i], i/2, i%2);
+    }
 }
 
 
@@ -168,7 +195,9 @@ void ReroAudioPeriodicThread::publishOutPorts() {
 	//-- Write to Active Ports.
 	if (outAudioPort.getOutputCount()) {
 		outAudioPort.setEnvelope(timeStamp);
-		outAudioPort.write(outputSound);
+
+		outAudioPort.write();
+		yInfo("Writing to active port");
 	}
 }
 

@@ -58,6 +58,10 @@ typedef yarp::os::BufferedPort< yarp::sig::Sound  > yarpSoundBuffer;
 class ReroAudioPeriodicThread : public yarp::os::PeriodicThread {
 
 private:
+    /* ===========================================================================
+ *  Helper function to copy the gRPC buffer to a yarp sound object
+ * =========================================================================== */
+    void copyGRPCBufferToSound(char* buffer, yarp::sig::Sound* sound);
 
 	bool result;                //-- Result of the processing.
 
@@ -98,6 +102,7 @@ private:
 	int samplingRate;
 	int numFrameSamples;
 	int numMics;
+	int grpcBufferSize;
 	std::string grpcHost;
 	std::string grpcPort;
 
