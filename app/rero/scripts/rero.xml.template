@@ -1,0 +1,32 @@
+<application>
+
+    <name> ReRo </name>
+
+    <!-->  
+    MODULES.    
+    <!-->
+    <module>
+        <name> reroAudio </name>
+        <parameters> </parameters>
+        <node> rero </node>
+    </module>
+
+    <module>
+        <name> reroSpeechRecognition </name>
+        <parameters> </parameters>
+        <node> rero </node>
+    </module>
+
+
+    <!-->  
+    CONNECTIONS.
+    <!-->
+
+
+    <connection>
+        <from> /reroAudio/rawAudio:o </from>
+        <to> /audioPreprocessor/rawAudio:i </to>
+        <protocol> tcp </protocol>
+    </connection>
+
+</application>

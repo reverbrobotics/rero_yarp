@@ -83,4 +83,4 @@ icubcontrib_set_default_prefix()
 include(AddUninstallTarget)
 
 add_subdirectory( modules      )
-#add_subdirectory( app          )
+add_subdirectory( app          )
