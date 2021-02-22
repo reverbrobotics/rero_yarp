@@ -61,7 +61,21 @@ bool ReroSpeechRecognitionModule::configure(yarp::os::ResourceFinder &rf) {
 		configFile.clear();
 	}
 
+    /* ===========================================================================
+     *  Create the thread and pass pointers to the module parameters.
+     * =========================================================================== */
+    thread = new ReroSpeechRecognitionThread(configFile);
+    thread->setName(getName().c_str());
 
+    if (!thread->configure(rf)) {
+        yInfo("Unable to open Resource Finder for Thread.");
+        return false;
+    }
+
+    /* ===========================================================================
+     *  Now start the thread to do the work.
+     * =========================================================================== */
+    thread->start();
 	//-- Let the RFModule know everything went 
 	//-- well so that it will then run the module.
 	return true ;     
@@ -78,8 +92,14 @@ bool ReroSpeechRecognitionModule::close() {
 
 	handlerPort.close();
 
+    //-- Stop the thread.
+    yInfo("Stopping the thread . . . \n");
+    thread->stop();
 
-	return true;
+    //-- Release the periodic thread.
+    delete thread;
+
+    return true;
 }
 
 

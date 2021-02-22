@@ -38,6 +38,7 @@
 #include <yarp/os/Network.h>
 #include <yarp/os/Thread.h>
 #include <yarp/os/Log.h>
+#include <ReroSpeechRecognitionThread.h>
 
 class ReroSpeechRecognitionModule : public yarp::os::RFModule { 
 
@@ -55,8 +56,9 @@ class ReroSpeechRecognitionModule : public yarp::os::RFModule {
 	
 	//-- Pointer to a new thread to be created and 
 	//-- started in configure() and stopped in close().
+    ReroSpeechRecognitionThread *thread;
 
-  public:
+public:
 
 	/* ===========================================================================
 	 *  Configure all the parameters and return true if successful.
