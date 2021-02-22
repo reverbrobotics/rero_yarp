@@ -27,6 +27,7 @@
  * =========================================================================== */
 
 #include <ReroSpeechRecognitionThread.h>
+#include "json.h"
 
 ReroSpeechRecognitionThread::ReroSpeechRecognitionThread() : 
 	Thread() {
@@ -139,27 +140,23 @@ void ReroSpeechRecognitionThread::setInputPortName(std::string InpPort) {
 	//-- Do nothing.
 }
 
-
 void ReroSpeechRecognitionThread::run() {
 
     while(!isStopping()) {
-        SpeechRecognitionResult speechRecognitionResult = client->StreamAudio();
+        if (outSpeechPort.getOutputCount()) {
+            SpeechRecognitionResult speechRecognitionResult = client->StreamAudio();
 
-        yInfo("Speech recognition result: %s", speechRecognitionResult.result().c_str());
-        timeStamp.update();
+            json::JSON resultObject = json::JSON::Load(speechRecognitionResult.result());
+
+            outputSpeech = &outSpeechPort.prepare();
+            outputSpeech->clear();
+            outputSpeech->addString(resultObject["text"].ToString());
+
+            publishOutPorts();
+
+            timeStamp.update();
+        }
     }
-//
-//	if (outAudioPort.getOutputCount()) {
-//	    outputSound = &outAudioPort.prepare();
-//
-//		//-- Write data to outgoing ports.
-//		publishOutPorts();
-//
-//		//-- Give time stats to the user.
-//		timeTotal  = timeDelay + timeReading + timeProcessing + timeTransmission;
-//		totalTime += timeTotal;
-//		totalIterations++;
-//	}
 }
 
 
