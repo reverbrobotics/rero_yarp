@@ -4,7 +4,7 @@
 
 cmake_minimum_required(VERSION 3.5)
 
-set(MODULE_NAME reroAudio)
+set(MODULE_NAME reroSpeechRecognition)
 project(${MODULE_NAME} LANGUAGES CXX C)
 
 file(GLOB FOLDER_SOURCE src/*.cpp src/*.cc src/*.c)
@@ -13,7 +13,6 @@ file(GLOB FOLDER_HEADER include/*.h)
 source_group("Source Files" FILES ${FOLDER_SOURCE})
 source_group("Header Files" FILES ${FOLDER_HEADER})
 
-
 include_directories("${CMAKE_CURRENT_BINARY_DIR}")
 
 add_executable(
@@ -21,7 +20,6 @@ add_executable(
     ${FOLDER_SOURCE}
     ${FOLDER_HEADER}
 )
-
 
 target_include_directories(
     ${PROJECT_NAME}
