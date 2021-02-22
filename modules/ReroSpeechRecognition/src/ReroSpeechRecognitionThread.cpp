@@ -61,17 +61,6 @@ bool ReroSpeechRecognitionThread::configure(yarp::os::ResourceFinder &rf) {
     grpcBufferSize = rf.findGroup("server").check("bufferSize",  yarp::os::Value(3),    "grpc audio buffer size" ).asInt();
 
 
-
-	/* ===========================================================================
-	 *  Initialize time counters to zero.
-	 * =========================================================================== */
-	totalDelay        = 0.0;
-	totalReading      = 0.0;
-	totalProcessing   = 0.0;
-	totalTransmission = 0.0;
-	totalTime         = 0.0;
-	totalIterations   = 0;
-
     client = new SpeechRecognitionClient(
             grpc::CreateChannel(grpcHost+":"+grpcPort, grpc::InsecureChannelCredentials()),
             grpc::CreateChannel(grpcHost+":"+grpcPort, grpc::InsecureChannelCredentials())
@@ -80,13 +69,13 @@ bool ReroSpeechRecognitionThread::configure(yarp::os::ResourceFinder &rf) {
     /* ===========================================================================
      *  Print the resulting variables to the console.
      * =========================================================================== */
-	yInfo( "\t                  [SAMPLING]                  "                                    );
-	yInfo( "\t ============================================ "                                    );
-	yInfo( "\t Sampling Rate                    : %d Hz",    samplingRate                        );
-	yInfo( "\t Number Samples per Frame         : %d",       numFrameSamples                     );
-    yInfo( "\t gRPC Host         : %s",                      grpcHost.c_str()                            );
-    yInfo( "\t gRPC Port         : %s",                      grpcPort.c_str()                            );
-	yInfo( " " );
+//	yInfo( "\t                  [SAMPLING]                  "                                    );
+//	yInfo( "\t ============================================ "                                    );
+//	yInfo( "\t Sampling Rate                    : %d Hz",    samplingRate                        );
+//	yInfo( "\t Number Samples per Frame         : %d",       numFrameSamples                     );
+//    yInfo( "\t gRPC Host         : %s",                      grpcHost.c_str()                            );
+//    yInfo( "\t gRPC Port         : %s",                      grpcPort.c_str()                            );
+//	yInfo( " " );
 
 	return true;
 }
@@ -104,7 +93,7 @@ bool ReroSpeechRecognitionThread::threadInit() {
 	}
 
 	stopTime = yarp::os::Time::now();
-	yInfo("Initialization of the processing thread correctly ended. Elapsed Time: %f.", stopTime - startTime);
+	yInfo("Initialization of the processing thread correctly ended.");
 	startTime = stopTime;
 
 

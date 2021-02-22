@@ -65,12 +65,6 @@ private:
 
 	double startTime;           //-- Used for keeping time and reporting temporal
     double stopTime;            //-- events to the user via command line.
-	
-	double timeDelay,        totalDelay;        //-- Hold on to and store time
-	double timeReading,      totalReading;	    //-- events for clean display
-	double timeProcessing,   totalProcessing;   //-- at the end of a loop.
-	double timeTransmission, totalTransmission; //-- Include stats on the average execution
-	double timeTotal,        totalTime;         //-- when the RFModule is closed.
 
 	int    totalIterations;
 
