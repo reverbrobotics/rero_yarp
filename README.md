@@ -23,5 +23,8 @@ The audio parameters define the parameters for the raw audio sound objects that 
 
 The server parameters define the gRPC server host, port, and gRPC buffer size for connecting to the ReroCore server.
 
+## Usage
+the app/rero/scripts/rero.xml.template file contains an example yarp application configuration file for use with yarpmanager.
+
 ## Licence
-This package is licenced under the GNU GENERAL PUBLIC LICENSE v2.0. 
+This package is licenced under the GNU GENERAL PUBLIC LICENSE v2.0. The ReroCore distributable is licenced under the MIT License. 
