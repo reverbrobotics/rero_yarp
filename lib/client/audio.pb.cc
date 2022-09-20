@@ -14,44 +14,43 @@
 #include <google/protobuf/wire_format.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
+
+PROTOBUF_PRAGMA_INIT_SEG
 namespace rero {
-class StreamRequestDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<StreamRequest> _instance;
-} _StreamRequest_default_instance_;
-class AudioDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Audio> _instance;
-} _Audio_default_instance_;
+constexpr StreamRequest::StreamRequest(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : format_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , sample_rate_(0u)
+  , num_channels_(0u)
+  , frames_per_buffer_(0u)
+  , bytes_per_sample_(0u){}
+struct StreamRequestDefaultTypeInternal {
+  constexpr StreamRequestDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~StreamRequestDefaultTypeInternal() {}
+  union {
+    StreamRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT StreamRequestDefaultTypeInternal _StreamRequest_default_instance_;
+constexpr Audio::Audio(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : raw_data_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , num_samples_(0u)
+  , num_channels_(0u)
+  , bytes_per_sample_(0u)
+  , frames_per_buffer_(0u)
+  , sample_rate_(0u){}
+struct AudioDefaultTypeInternal {
+  constexpr AudioDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~AudioDefaultTypeInternal() {}
+  union {
+    Audio _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT AudioDefaultTypeInternal _Audio_default_instance_;
 }  // namespace rero
-static void InitDefaultsscc_info_Audio_audio_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::rero::_Audio_default_instance_;
-    new (ptr) ::rero::Audio();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::rero::Audio::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Audio_audio_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_Audio_audio_2eproto}, {}};
-
-static void InitDefaultsscc_info_StreamRequest_audio_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::rero::_StreamRequest_default_instance_;
-    new (ptr) ::rero::StreamRequest();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::rero::StreamRequest::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_StreamRequest_audio_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_StreamRequest_audio_2eproto}, {}};
-
 static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_audio_2eproto[2];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_audio_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_audio_2eproto = nullptr;
@@ -101,28 +100,25 @@ const char descriptor_table_protodef_audio_2eproto[] PROTOBUF_SECTION_VARIABLE(p
   "eam\022\023.rero.StreamRequest\032\013.rero.Audio\"\0000"
   "\001b\006proto3"
   ;
-static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_audio_2eproto_deps[1] = {
-};
-static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_audio_2eproto_sccs[2] = {
-  &scc_info_Audio_audio_2eproto.base,
-  &scc_info_StreamRequest_audio_2eproto.base,
-};
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_audio_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_audio_2eproto = {
-  false, false, descriptor_table_protodef_audio_2eproto, "audio.proto", 369,
-  &descriptor_table_audio_2eproto_once, descriptor_table_audio_2eproto_sccs, descriptor_table_audio_2eproto_deps, 2, 0,
+  false, false, 369, descriptor_table_protodef_audio_2eproto, "audio.proto", 
+  &descriptor_table_audio_2eproto_once, nullptr, 0, 2,
   schemas, file_default_instances, TableStruct_audio_2eproto::offsets,
-  file_level_metadata_audio_2eproto, 2, file_level_enum_descriptors_audio_2eproto, file_level_service_descriptors_audio_2eproto,
+  file_level_metadata_audio_2eproto, file_level_enum_descriptors_audio_2eproto, file_level_service_descriptors_audio_2eproto,
 };
+PROTOBUF_ATTRIBUTE_WEAK ::PROTOBUF_NAMESPACE_ID::Metadata
+descriptor_table_audio_2eproto_metadata_getter(int index) {
+  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_audio_2eproto);
+  return descriptor_table_audio_2eproto.file_level_metadata[index];
+}
 
 // Force running AddDescriptors() at dynamic initialization time.
-static bool dynamic_init_dummy_audio_2eproto = (static_cast<void>(::PROTOBUF_NAMESPACE_ID::internal::AddDescriptors(&descriptor_table_audio_2eproto)), true);
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_audio_2eproto(&descriptor_table_audio_2eproto);
 namespace rero {
 
 // ===================================================================
 
-void StreamRequest::InitAsDefaultInstance() {
-}
 class StreamRequest::_Internal {
  public:
 };
@@ -138,7 +134,7 @@ StreamRequest::StreamRequest(const StreamRequest& from)
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   format_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_format().empty()) {
-    format_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_format(),
+    format_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_format(), 
       GetArena());
   }
   ::memcpy(&sample_rate_, &from.sample_rate_,
@@ -148,11 +144,11 @@ StreamRequest::StreamRequest(const StreamRequest& from)
 }
 
 void StreamRequest::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_StreamRequest_audio_2eproto.base);
-  format_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  ::memset(&sample_rate_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&bytes_per_sample_) -
-      reinterpret_cast<char*>(&sample_rate_)) + sizeof(bytes_per_sample_));
+format_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&sample_rate_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&bytes_per_sample_) -
+    reinterpret_cast<char*>(&sample_rate_)) + sizeof(bytes_per_sample_));
 }
 
 StreamRequest::~StreamRequest() {
@@ -175,11 +171,6 @@ void StreamRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void StreamRequest::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const StreamRequest& StreamRequest::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_StreamRequest_audio_2eproto.base);
-  return *internal_default_instance();
-}
-
 
 void StreamRequest::Clear() {
 // @@protoc_insertion_point(message_clear_start:rero.StreamRequest)
@@ -187,7 +178,7 @@ void StreamRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  format_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  format_.ClearToEmpty();
   ::memset(&sample_rate_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&bytes_per_sample_) -
       reinterpret_cast<char*>(&sample_rate_)) + sizeof(bytes_per_sample_));
@@ -196,7 +187,6 @@ void StreamRequest::Clear() {
 
 const char* StreamRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
@@ -437,8 +427,6 @@ void StreamRequest::InternalSwap(StreamRequest* other) {
 
 // ===================================================================
 
-void Audio::InitAsDefaultInstance() {
-}
 class Audio::_Internal {
  public:
 };
@@ -454,7 +442,7 @@ Audio::Audio(const Audio& from)
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   raw_data_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_raw_data().empty()) {
-    raw_data_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_raw_data(),
+    raw_data_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_raw_data(), 
       GetArena());
   }
   ::memcpy(&num_samples_, &from.num_samples_,
@@ -464,11 +452,11 @@ Audio::Audio(const Audio& from)
 }
 
 void Audio::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_Audio_audio_2eproto.base);
-  raw_data_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  ::memset(&num_samples_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&sample_rate_) -
-      reinterpret_cast<char*>(&num_samples_)) + sizeof(sample_rate_));
+raw_data_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&num_samples_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&sample_rate_) -
+    reinterpret_cast<char*>(&num_samples_)) + sizeof(sample_rate_));
 }
 
 Audio::~Audio() {
@@ -491,11 +479,6 @@ void Audio::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void Audio::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const Audio& Audio::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_Audio_audio_2eproto.base);
-  return *internal_default_instance();
-}
-
 
 void Audio::Clear() {
 // @@protoc_insertion_point(message_clear_start:rero.Audio)
@@ -503,7 +486,7 @@ void Audio::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  raw_data_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  raw_data_.ClearToEmpty();
   ::memset(&num_samples_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&sample_rate_) -
       reinterpret_cast<char*>(&num_samples_)) + sizeof(sample_rate_));
@@ -512,7 +495,6 @@ void Audio::Clear() {
 
 const char* Audio::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);

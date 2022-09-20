@@ -14,26 +14,22 @@
 #include <google/protobuf/wire_format.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
+
+PROTOBUF_PRAGMA_INIT_SEG
 namespace rero {
-class SpeechRecognitionResultDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<SpeechRecognitionResult> _instance;
-} _SpeechRecognitionResult_default_instance_;
+constexpr SpeechRecognitionResult::SpeechRecognitionResult(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : result_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+struct SpeechRecognitionResultDefaultTypeInternal {
+  constexpr SpeechRecognitionResultDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~SpeechRecognitionResultDefaultTypeInternal() {}
+  union {
+    SpeechRecognitionResult _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SpeechRecognitionResultDefaultTypeInternal _SpeechRecognitionResult_default_instance_;
 }  // namespace rero
-static void InitDefaultsscc_info_SpeechRecognitionResult_speech_5frecognition_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::rero::_SpeechRecognitionResult_default_instance_;
-    new (ptr) ::rero::SpeechRecognitionResult();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::rero::SpeechRecognitionResult::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_SpeechRecognitionResult_speech_5frecognition_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_SpeechRecognitionResult_speech_5frecognition_2eproto}, {}};
-
 static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_speech_5frecognition_2eproto[1];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_speech_5frecognition_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_speech_5frecognition_2eproto = nullptr;
@@ -64,25 +60,25 @@ const char descriptor_table_protodef_speech_5frecognition_2eproto[] PROTOBUF_SEC
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_speech_5frecognition_2eproto_deps[1] = {
   &::descriptor_table_audio_2eproto,
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_speech_5frecognition_2eproto_sccs[1] = {
-  &scc_info_SpeechRecognitionResult_speech_5frecognition_2eproto.base,
-};
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_speech_5frecognition_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_speech_5frecognition_2eproto = {
-  false, false, descriptor_table_protodef_speech_5frecognition_2eproto, "speech_recognition.proto", 184,
-  &descriptor_table_speech_5frecognition_2eproto_once, descriptor_table_speech_5frecognition_2eproto_sccs, descriptor_table_speech_5frecognition_2eproto_deps, 1, 1,
+  false, false, 184, descriptor_table_protodef_speech_5frecognition_2eproto, "speech_recognition.proto", 
+  &descriptor_table_speech_5frecognition_2eproto_once, descriptor_table_speech_5frecognition_2eproto_deps, 1, 1,
   schemas, file_default_instances, TableStruct_speech_5frecognition_2eproto::offsets,
-  file_level_metadata_speech_5frecognition_2eproto, 1, file_level_enum_descriptors_speech_5frecognition_2eproto, file_level_service_descriptors_speech_5frecognition_2eproto,
+  file_level_metadata_speech_5frecognition_2eproto, file_level_enum_descriptors_speech_5frecognition_2eproto, file_level_service_descriptors_speech_5frecognition_2eproto,
 };
+PROTOBUF_ATTRIBUTE_WEAK ::PROTOBUF_NAMESPACE_ID::Metadata
+descriptor_table_speech_5frecognition_2eproto_metadata_getter(int index) {
+  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_speech_5frecognition_2eproto);
+  return descriptor_table_speech_5frecognition_2eproto.file_level_metadata[index];
+}
 
 // Force running AddDescriptors() at dynamic initialization time.
-static bool dynamic_init_dummy_speech_5frecognition_2eproto = (static_cast<void>(::PROTOBUF_NAMESPACE_ID::internal::AddDescriptors(&descriptor_table_speech_5frecognition_2eproto)), true);
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_speech_5frecognition_2eproto(&descriptor_table_speech_5frecognition_2eproto);
 namespace rero {
 
 // ===================================================================
 
-void SpeechRecognitionResult::InitAsDefaultInstance() {
-}
 class SpeechRecognitionResult::_Internal {
  public:
 };
@@ -98,15 +94,14 @@ SpeechRecognitionResult::SpeechRecognitionResult(const SpeechRecognitionResult& 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   result_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_result().empty()) {
-    result_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_result(),
+    result_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_result(), 
       GetArena());
   }
   // @@protoc_insertion_point(copy_constructor:rero.SpeechRecognitionResult)
 }
 
 void SpeechRecognitionResult::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_SpeechRecognitionResult_speech_5frecognition_2eproto.base);
-  result_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+result_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 SpeechRecognitionResult::~SpeechRecognitionResult() {
@@ -129,11 +124,6 @@ void SpeechRecognitionResult::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*)
 void SpeechRecognitionResult::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const SpeechRecognitionResult& SpeechRecognitionResult::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_SpeechRecognitionResult_speech_5frecognition_2eproto.base);
-  return *internal_default_instance();
-}
-
 
 void SpeechRecognitionResult::Clear() {
 // @@protoc_insertion_point(message_clear_start:rero.SpeechRecognitionResult)
@@ -141,13 +131,12 @@ void SpeechRecognitionResult::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  result_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  result_.ClearToEmpty();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* SpeechRecognitionResult::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
