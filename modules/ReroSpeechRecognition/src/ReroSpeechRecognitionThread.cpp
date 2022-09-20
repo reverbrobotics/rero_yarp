@@ -53,15 +53,16 @@ bool ReroSpeechRecognitionThread::configure(yarp::os::ResourceFinder &rf) {
 	 *  Pull variables for this module from the resource finder.
 	 * =========================================================================== */
 	yInfo( "Loading Configuration File." );
-	numMics      = rf.findGroup("audio").check("numMics",     yarp::os::Value(2),     "number of mics (int)"                 ).asInt();
-	samplingRate     = rf.findGroup("audio").check("samplingRate",     yarp::os::Value(48000),   "sampling rate of mics (int)"            ).asInt();
-	numFrameSamples  = rf.findGroup("audio").check("numFrameSamples",  yarp::os::Value(4096),    "number of frame samples received (int)" ).asInt();
+	numMics      = rf.findGroup("audio").check("numMics",     yarp::os::Value(2),     "number of mics (int)"                 ).asInt32();
+	samplingRate     = rf.findGroup("audio").check("samplingRate",     yarp::os::Value(48000),   "sampling rate of mics (int)"            ).asInt32();
+	numFrameSamples  = rf.findGroup("audio").check("numFrameSamples",  yarp::os::Value(4096),    "number of frame samples received (int)" ).asInt32();
     grpcHost = rf.findGroup("server").check("host",  yarp::os::Value("0.0.0.0"),    "grpc server address" ).asString();
     grpcPort = rf.findGroup("server").check("port",  yarp::os::Value("50052"),    "grpc server port" ).asString();
-    grpcBufferSize = rf.findGroup("server").check("bufferSize",  yarp::os::Value(3),    "grpc audio buffer size" ).asInt();
+    grpcBufferSize = rf.findGroup("server").check("bufferSize",  yarp::os::Value(3),    "grpc audio buffer size" ).asInt32();
 
 
     client = new SpeechRecognitionClient(
+            grpc::CreateChannel(grpcHost+":"+grpcPort, grpc::InsecureChannelCredentials()),
             grpc::CreateChannel(grpcHost+":"+grpcPort, grpc::InsecureChannelCredentials()),
             grpc::CreateChannel(grpcHost+":"+grpcPort, grpc::InsecureChannelCredentials())
             );
