@@ -60,6 +60,7 @@ include(ICUBcontribHelpers)
 
 ############################################################
 include(FetchContent)
+add_subdirectory( pythonScripts)
 
 FetchContent_Declare(
         gRPC
@@ -103,3 +104,4 @@ include(AddUninstallTarget)
 
 add_subdirectory( modules      )
 add_subdirectory( app          )
+
