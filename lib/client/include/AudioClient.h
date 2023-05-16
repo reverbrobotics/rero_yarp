@@ -14,6 +14,8 @@
 #include <thread>
 #include <chrono>
 #include "audio.grpc.pb.h"
+#include <stdio.h>
+
 
 #define CHECK_OVERFLOW  (0)
 #define CHECK_UNDERFLOW  (0)
@@ -22,8 +24,10 @@ using grpc::Status;
 using grpc::Channel;
 using grpc::ClientContext;
 using grpc::ClientReader;
+using grpc::ClientWriter;
 
 using rero::StreamRequest;
+using rero::PlayResult;
 using rero::AudioStreamer;
 using rero::Audio;
 
@@ -53,6 +57,8 @@ public:
 
     void StreamAudio();
 
+    void PlayWav(std::string& wav_path);
+
     uint16_t getNumBytes() const { return numBytes; }
 
     uint16_t getNumChannels() const { return numChannels; }
@@ -60,6 +66,8 @@ public:
     uint16_t getSampleRate() const { return sampleRate; }
 
     uint16_t getFramesPerBuffer() const { return framesPerBuffer; }
+
+    uint32_t getFrameIndex() const {return frameIndex; }
 
 private:
     std::unique_ptr<AudioStreamer::Stub> stub_;
@@ -77,6 +85,7 @@ private:
     uint32_t writePos;
     std::thread streamThread;
     std::atomic_bool streaming;
+    uint32_t frameIndex;
 };
 
 #endif //AUDIOTEST_AUDIOCLIENT_H

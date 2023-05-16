@@ -157,6 +157,10 @@ void ReroAudioPeriodicThread::setInputPortName(std::string InpPort) {
 
 
 void ReroAudioPeriodicThread::run() {
+    //skip first couple of frames to fill buffer
+    if(this->getIterations() < 2)
+        return;
+
     char* buffer = this->client->GetBuffer();
 
 	if (outAudioPort.getOutputCount()) {

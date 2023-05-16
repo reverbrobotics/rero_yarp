@@ -23,6 +23,7 @@ namespace rero {
 
 static const char* AudioStreamer_method_names[] = {
   "/rero.AudioStreamer/GetStream",
+  "/rero.AudioStreamer/PlayAudio",
 };
 
 std::unique_ptr< AudioStreamer::Stub> AudioStreamer::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -33,6 +34,7 @@ std::unique_ptr< AudioStreamer::Stub> AudioStreamer::NewStub(const std::shared_p
 
 AudioStreamer::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
   : channel_(channel), rpcmethod_GetStream_(AudioStreamer_method_names[0], ::grpc::internal::RpcMethod::SERVER_STREAMING, channel)
+  , rpcmethod_PlayAudio_(AudioStreamer_method_names[1], ::grpc::internal::RpcMethod::CLIENT_STREAMING, channel)
   {}
 
 ::grpc::ClientReader< ::rero::Audio>* AudioStreamer::Stub::GetStreamRaw(::grpc::ClientContext* context, const ::rero::StreamRequest& request) {
@@ -51,6 +53,22 @@ void AudioStreamer::Stub::experimental_async::GetStream(::grpc::ClientContext* c
   return ::grpc::internal::ClientAsyncReaderFactory< ::rero::Audio>::Create(channel_.get(), cq, rpcmethod_GetStream_, context, request, false, nullptr);
 }
 
+::grpc::ClientWriter< ::rero::Audio>* AudioStreamer::Stub::PlayAudioRaw(::grpc::ClientContext* context, ::rero::PlayResult* response) {
+  return ::grpc::internal::ClientWriterFactory< ::rero::Audio>::Create(channel_.get(), rpcmethod_PlayAudio_, context, response);
+}
+
+void AudioStreamer::Stub::experimental_async::PlayAudio(::grpc::ClientContext* context, ::rero::PlayResult* response, ::grpc::experimental::ClientWriteReactor< ::rero::Audio>* reactor) {
+  ::grpc::internal::ClientCallbackWriterFactory< ::rero::Audio>::Create(stub_->channel_.get(), stub_->rpcmethod_PlayAudio_, context, response, reactor);
+}
+
+::grpc::ClientAsyncWriter< ::rero::Audio>* AudioStreamer::Stub::AsyncPlayAudioRaw(::grpc::ClientContext* context, ::rero::PlayResult* response, ::grpc::CompletionQueue* cq, void* tag) {
+  return ::grpc::internal::ClientAsyncWriterFactory< ::rero::Audio>::Create(channel_.get(), cq, rpcmethod_PlayAudio_, context, response, true, tag);
+}
+
+::grpc::ClientAsyncWriter< ::rero::Audio>* AudioStreamer::Stub::PrepareAsyncPlayAudioRaw(::grpc::ClientContext* context, ::rero::PlayResult* response, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncWriterFactory< ::rero::Audio>::Create(channel_.get(), cq, rpcmethod_PlayAudio_, context, response, false, nullptr);
+}
+
 AudioStreamer::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       AudioStreamer_method_names[0],
@@ -62,6 +80,16 @@ AudioStreamer::Service::Service() {
              ::grpc::ServerWriter<::rero::Audio>* writer) {
                return service->GetStream(ctx, req, writer);
              }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      AudioStreamer_method_names[1],
+      ::grpc::internal::RpcMethod::CLIENT_STREAMING,
+      new ::grpc::internal::ClientStreamingHandler< AudioStreamer::Service, ::rero::Audio, ::rero::PlayResult>(
+          [](AudioStreamer::Service* service,
+             ::grpc::ServerContext* ctx,
+             ::grpc::ServerReader<::rero::Audio>* reader,
+             ::rero::PlayResult* resp) {
+               return service->PlayAudio(ctx, reader, resp);
+             }, this)));
 }
 
 AudioStreamer::Service::~Service() {
@@ -71,6 +99,13 @@ AudioStreamer::Service::~Service() {
   (void) context;
   (void) request;
   (void) writer;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status AudioStreamer::Service::PlayAudio(::grpc::ServerContext* context, ::grpc::ServerReader< ::rero::Audio>* reader, ::rero::PlayResult* response) {
+  (void) context;
+  (void) reader;
+  (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 

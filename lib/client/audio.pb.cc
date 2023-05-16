@@ -33,6 +33,19 @@ struct StreamRequestDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT StreamRequestDefaultTypeInternal _StreamRequest_default_instance_;
+constexpr PlayResult::PlayResult(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : pa_error_msg_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , pa_error_code_(0u){}
+struct PlayResultDefaultTypeInternal {
+  constexpr PlayResultDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~PlayResultDefaultTypeInternal() {}
+  union {
+    PlayResult _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PlayResultDefaultTypeInternal _PlayResult_default_instance_;
 constexpr Audio::Audio(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : raw_data_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
@@ -51,7 +64,7 @@ struct AudioDefaultTypeInternal {
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT AudioDefaultTypeInternal _Audio_default_instance_;
 }  // namespace rero
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_audio_2eproto[2];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_audio_2eproto[3];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_audio_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_audio_2eproto = nullptr;
 
@@ -67,6 +80,13 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_audio_2eproto::offsets[] PROTO
   PROTOBUF_FIELD_OFFSET(::rero::StreamRequest, frames_per_buffer_),
   PROTOBUF_FIELD_OFFSET(::rero::StreamRequest, bytes_per_sample_),
   ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::rero::PlayResult, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::rero::PlayResult, pa_error_code_),
+  PROTOBUF_FIELD_OFFSET(::rero::PlayResult, pa_error_msg_),
+  ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::rero::Audio, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
@@ -80,11 +100,13 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_audio_2eproto::offsets[] PROTO
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::rero::StreamRequest)},
-  { 10, -1, sizeof(::rero::Audio)},
+  { 10, -1, sizeof(::rero::PlayResult)},
+  { 17, -1, sizeof(::rero::Audio)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::rero::_StreamRequest_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::rero::_PlayResult_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::rero::_Audio_default_instance_),
 };
 
@@ -92,18 +114,20 @@ const char descriptor_table_protodef_audio_2eproto[] PROTOBUF_SECTION_VARIABLE(p
   "\n\013audio.proto\022\004rero\"\177\n\rStreamRequest\022\023\n\013"
   "sample_rate\030\001 \001(\r\022\024\n\014num_channels\030\002 \001(\r\022"
   "\016\n\006format\030\003 \001(\t\022\031\n\021frames_per_buffer\030\004 \001"
-  "(\r\022\030\n\020bytes_per_sample\030\005 \001(\r\"\216\001\n\005Audio\022\023"
-  "\n\013num_samples\030\001 \001(\r\022\024\n\014num_channels\030\002 \001("
-  "\r\022\030\n\020bytes_per_sample\030\003 \001(\r\022\031\n\021frames_pe"
-  "r_buffer\030\004 \001(\r\022\023\n\013sample_rate\030\005 \001(\r\022\020\n\010r"
-  "aw_data\030\006 \001(\0142B\n\rAudioStreamer\0221\n\tGetStr"
-  "eam\022\023.rero.StreamRequest\032\013.rero.Audio\"\0000"
-  "\001b\006proto3"
+  "(\r\022\030\n\020bytes_per_sample\030\005 \001(\r\"9\n\nPlayResu"
+  "lt\022\025\n\rpa_error_code\030\001 \001(\r\022\024\n\014pa_error_ms"
+  "g\030\002 \001(\t\"\216\001\n\005Audio\022\023\n\013num_samples\030\001 \001(\r\022\024"
+  "\n\014num_channels\030\002 \001(\r\022\030\n\020bytes_per_sample"
+  "\030\003 \001(\r\022\031\n\021frames_per_buffer\030\004 \001(\r\022\023\n\013sam"
+  "ple_rate\030\005 \001(\r\022\020\n\010raw_data\030\006 \001(\0142r\n\rAudi"
+  "oStreamer\0221\n\tGetStream\022\023.rero.StreamRequ"
+  "est\032\013.rero.Audio\"\0000\001\022.\n\tPlayAudio\022\013.rero"
+  ".Audio\032\020.rero.PlayResult\"\000(\001b\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_audio_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_audio_2eproto = {
-  false, false, 369, descriptor_table_protodef_audio_2eproto, "audio.proto", 
-  &descriptor_table_audio_2eproto_once, nullptr, 0, 2,
+  false, false, 476, descriptor_table_protodef_audio_2eproto, "audio.proto", 
+  &descriptor_table_audio_2eproto_once, nullptr, 0, 3,
   schemas, file_default_instances, TableStruct_audio_2eproto::offsets,
   file_level_metadata_audio_2eproto, file_level_enum_descriptors_audio_2eproto, file_level_service_descriptors_audio_2eproto,
 };
@@ -421,6 +445,233 @@ void StreamRequest::InternalSwap(StreamRequest* other) {
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata StreamRequest::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+class PlayResult::_Internal {
+ public:
+};
+
+PlayResult::PlayResult(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:rero.PlayResult)
+}
+PlayResult::PlayResult(const PlayResult& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  pa_error_msg_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_pa_error_msg().empty()) {
+    pa_error_msg_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_pa_error_msg(), 
+      GetArena());
+  }
+  pa_error_code_ = from.pa_error_code_;
+  // @@protoc_insertion_point(copy_constructor:rero.PlayResult)
+}
+
+void PlayResult::SharedCtor() {
+pa_error_msg_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+pa_error_code_ = 0u;
+}
+
+PlayResult::~PlayResult() {
+  // @@protoc_insertion_point(destructor:rero.PlayResult)
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+void PlayResult::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
+  pa_error_msg_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void PlayResult::ArenaDtor(void* object) {
+  PlayResult* _this = reinterpret_cast< PlayResult* >(object);
+  (void)_this;
+}
+void PlayResult::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void PlayResult::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void PlayResult::Clear() {
+// @@protoc_insertion_point(message_clear_start:rero.PlayResult)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  pa_error_msg_.ClearToEmpty();
+  pa_error_code_ = 0u;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* PlayResult::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // uint32 pa_error_code = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
+          pa_error_code_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string pa_error_msg = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          auto str = _internal_mutable_pa_error_msg();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "rero.PlayResult.pa_error_msg"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* PlayResult::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:rero.PlayResult)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // uint32 pa_error_code = 1;
+  if (this->pa_error_code() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(1, this->_internal_pa_error_code(), target);
+  }
+
+  // string pa_error_msg = 2;
+  if (this->pa_error_msg().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_pa_error_msg().data(), static_cast<int>(this->_internal_pa_error_msg().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "rero.PlayResult.pa_error_msg");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_pa_error_msg(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:rero.PlayResult)
+  return target;
+}
+
+size_t PlayResult::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:rero.PlayResult)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string pa_error_msg = 2;
+  if (this->pa_error_msg().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_pa_error_msg());
+  }
+
+  // uint32 pa_error_code = 1;
+  if (this->pa_error_code() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
+        this->_internal_pa_error_code());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void PlayResult::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:rero.PlayResult)
+  GOOGLE_DCHECK_NE(&from, this);
+  const PlayResult* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<PlayResult>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:rero.PlayResult)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:rero.PlayResult)
+    MergeFrom(*source);
+  }
+}
+
+void PlayResult::MergeFrom(const PlayResult& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:rero.PlayResult)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.pa_error_msg().size() > 0) {
+    _internal_set_pa_error_msg(from._internal_pa_error_msg());
+  }
+  if (from.pa_error_code() != 0) {
+    _internal_set_pa_error_code(from._internal_pa_error_code());
+  }
+}
+
+void PlayResult::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:rero.PlayResult)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void PlayResult::CopyFrom(const PlayResult& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:rero.PlayResult)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool PlayResult::IsInitialized() const {
+  return true;
+}
+
+void PlayResult::InternalSwap(PlayResult* other) {
+  using std::swap;
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  pa_error_msg_.Swap(&other->pa_error_msg_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  swap(pa_error_code_, other->pa_error_code_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata PlayResult::GetMetadata() const {
   return GetMetadataStatic();
 }
 
@@ -756,6 +1007,9 @@ void Audio::InternalSwap(Audio* other) {
 PROTOBUF_NAMESPACE_OPEN
 template<> PROTOBUF_NOINLINE ::rero::StreamRequest* Arena::CreateMaybeMessage< ::rero::StreamRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::rero::StreamRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::rero::PlayResult* Arena::CreateMaybeMessage< ::rero::PlayResult >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::rero::PlayResult >(arena);
 }
 template<> PROTOBUF_NOINLINE ::rero::Audio* Arena::CreateMaybeMessage< ::rero::Audio >(Arena* arena) {
   return Arena::CreateMessageInternal< ::rero::Audio >(arena);

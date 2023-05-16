@@ -45,6 +45,13 @@ class SpeechRecognition final {
     std::unique_ptr< ::grpc::ClientAsyncWriterInterface< ::rero::Audio>> PrepareAsyncRecognizeSpeech(::grpc::ClientContext* context, ::rero::SpeechRecognitionResult* response, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncWriterInterface< ::rero::Audio>>(PrepareAsyncRecognizeSpeechRaw(context, response, cq));
     }
+    virtual ::grpc::Status SetVocab(::grpc::ClientContext* context, const ::rero::Vocab& request, ::rero::VocabResult* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rero::VocabResult>> AsyncSetVocab(::grpc::ClientContext* context, const ::rero::Vocab& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rero::VocabResult>>(AsyncSetVocabRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rero::VocabResult>> PrepareAsyncSetVocab(::grpc::ClientContext* context, const ::rero::Vocab& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rero::VocabResult>>(PrepareAsyncSetVocabRaw(context, request, cq));
+    }
     class experimental_async_interface {
      public:
       virtual ~experimental_async_interface() {}
@@ -52,6 +59,12 @@ class SpeechRecognition final {
       virtual void RecognizeSpeech(::grpc::ClientContext* context, ::rero::SpeechRecognitionResult* response, ::grpc::ClientWriteReactor< ::rero::Audio>* reactor) = 0;
       #else
       virtual void RecognizeSpeech(::grpc::ClientContext* context, ::rero::SpeechRecognitionResult* response, ::grpc::experimental::ClientWriteReactor< ::rero::Audio>* reactor) = 0;
+      #endif
+      virtual void SetVocab(::grpc::ClientContext* context, const ::rero::Vocab* request, ::rero::VocabResult* response, std::function<void(::grpc::Status)>) = 0;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void SetVocab(::grpc::ClientContext* context, const ::rero::Vocab* request, ::rero::VocabResult* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void SetVocab(::grpc::ClientContext* context, const ::rero::Vocab* request, ::rero::VocabResult* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
     };
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
@@ -65,6 +78,8 @@ class SpeechRecognition final {
     virtual ::grpc::ClientWriterInterface< ::rero::Audio>* RecognizeSpeechRaw(::grpc::ClientContext* context, ::rero::SpeechRecognitionResult* response) = 0;
     virtual ::grpc::ClientAsyncWriterInterface< ::rero::Audio>* AsyncRecognizeSpeechRaw(::grpc::ClientContext* context, ::rero::SpeechRecognitionResult* response, ::grpc::CompletionQueue* cq, void* tag) = 0;
     virtual ::grpc::ClientAsyncWriterInterface< ::rero::Audio>* PrepareAsyncRecognizeSpeechRaw(::grpc::ClientContext* context, ::rero::SpeechRecognitionResult* response, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::rero::VocabResult>* AsyncSetVocabRaw(::grpc::ClientContext* context, const ::rero::Vocab& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::rero::VocabResult>* PrepareAsyncSetVocabRaw(::grpc::ClientContext* context, const ::rero::Vocab& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
@@ -78,6 +93,13 @@ class SpeechRecognition final {
     std::unique_ptr< ::grpc::ClientAsyncWriter< ::rero::Audio>> PrepareAsyncRecognizeSpeech(::grpc::ClientContext* context, ::rero::SpeechRecognitionResult* response, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncWriter< ::rero::Audio>>(PrepareAsyncRecognizeSpeechRaw(context, response, cq));
     }
+    ::grpc::Status SetVocab(::grpc::ClientContext* context, const ::rero::Vocab& request, ::rero::VocabResult* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::rero::VocabResult>> AsyncSetVocab(::grpc::ClientContext* context, const ::rero::Vocab& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::rero::VocabResult>>(AsyncSetVocabRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::rero::VocabResult>> PrepareAsyncSetVocab(::grpc::ClientContext* context, const ::rero::Vocab& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::rero::VocabResult>>(PrepareAsyncSetVocabRaw(context, request, cq));
+    }
     class experimental_async final :
       public StubInterface::experimental_async_interface {
      public:
@@ -85,6 +107,12 @@ class SpeechRecognition final {
       void RecognizeSpeech(::grpc::ClientContext* context, ::rero::SpeechRecognitionResult* response, ::grpc::ClientWriteReactor< ::rero::Audio>* reactor) override;
       #else
       void RecognizeSpeech(::grpc::ClientContext* context, ::rero::SpeechRecognitionResult* response, ::grpc::experimental::ClientWriteReactor< ::rero::Audio>* reactor) override;
+      #endif
+      void SetVocab(::grpc::ClientContext* context, const ::rero::Vocab* request, ::rero::VocabResult* response, std::function<void(::grpc::Status)>) override;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void SetVocab(::grpc::ClientContext* context, const ::rero::Vocab* request, ::rero::VocabResult* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void SetVocab(::grpc::ClientContext* context, const ::rero::Vocab* request, ::rero::VocabResult* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       #endif
      private:
       friend class Stub;
@@ -100,7 +128,10 @@ class SpeechRecognition final {
     ::grpc::ClientWriter< ::rero::Audio>* RecognizeSpeechRaw(::grpc::ClientContext* context, ::rero::SpeechRecognitionResult* response) override;
     ::grpc::ClientAsyncWriter< ::rero::Audio>* AsyncRecognizeSpeechRaw(::grpc::ClientContext* context, ::rero::SpeechRecognitionResult* response, ::grpc::CompletionQueue* cq, void* tag) override;
     ::grpc::ClientAsyncWriter< ::rero::Audio>* PrepareAsyncRecognizeSpeechRaw(::grpc::ClientContext* context, ::rero::SpeechRecognitionResult* response, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::rero::VocabResult>* AsyncSetVocabRaw(::grpc::ClientContext* context, const ::rero::Vocab& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::rero::VocabResult>* PrepareAsyncSetVocabRaw(::grpc::ClientContext* context, const ::rero::Vocab& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_RecognizeSpeech_;
+    const ::grpc::internal::RpcMethod rpcmethod_SetVocab_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -109,6 +140,7 @@ class SpeechRecognition final {
     Service();
     virtual ~Service();
     virtual ::grpc::Status RecognizeSpeech(::grpc::ServerContext* context, ::grpc::ServerReader< ::rero::Audio>* reader, ::rero::SpeechRecognitionResult* response);
+    virtual ::grpc::Status SetVocab(::grpc::ServerContext* context, const ::rero::Vocab* request, ::rero::VocabResult* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_RecognizeSpeech : public BaseClass {
@@ -130,7 +162,27 @@ class SpeechRecognition final {
       ::grpc::Service::RequestAsyncClientStreaming(0, context, reader, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_RecognizeSpeech<Service > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_SetVocab : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_SetVocab() {
+      ::grpc::Service::MarkMethodAsync(1);
+    }
+    ~WithAsyncMethod_SetVocab() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SetVocab(::grpc::ServerContext* /*context*/, const ::rero::Vocab* /*request*/, ::rero::VocabResult* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestSetVocab(::grpc::ServerContext* context, ::rero::Vocab* request, ::grpc::ServerAsyncResponseWriter< ::rero::VocabResult>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_RecognizeSpeech<WithAsyncMethod_SetVocab<Service > > AsyncService;
   template <class BaseClass>
   class ExperimentalWithCallbackMethod_RecognizeSpeech : public BaseClass {
    private:
@@ -169,11 +221,58 @@ class SpeechRecognition final {
     #endif
       { return nullptr; }
   };
+  template <class BaseClass>
+  class ExperimentalWithCallbackMethod_SetVocab : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithCallbackMethod_SetVocab() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodCallback(1,
+          new ::grpc::internal::CallbackUnaryHandler< ::rero::Vocab, ::rero::VocabResult>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::rero::Vocab* request, ::rero::VocabResult* response) { return this->SetVocab(context, request, response); }));}
+    void SetMessageAllocatorFor_SetVocab(
+        ::grpc::experimental::MessageAllocator< ::rero::Vocab, ::rero::VocabResult>* allocator) {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
+    #else
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(1);
+    #endif
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::rero::Vocab, ::rero::VocabResult>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~ExperimentalWithCallbackMethod_SetVocab() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SetVocab(::grpc::ServerContext* /*context*/, const ::rero::Vocab* /*request*/, ::rero::VocabResult* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* SetVocab(
+      ::grpc::CallbackServerContext* /*context*/, const ::rero::Vocab* /*request*/, ::rero::VocabResult* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* SetVocab(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::rero::Vocab* /*request*/, ::rero::VocabResult* /*response*/)
+    #endif
+      { return nullptr; }
+  };
   #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_RecognizeSpeech<Service > CallbackService;
+  typedef ExperimentalWithCallbackMethod_RecognizeSpeech<ExperimentalWithCallbackMethod_SetVocab<Service > > CallbackService;
   #endif
 
-  typedef ExperimentalWithCallbackMethod_RecognizeSpeech<Service > ExperimentalCallbackService;
+  typedef ExperimentalWithCallbackMethod_RecognizeSpeech<ExperimentalWithCallbackMethod_SetVocab<Service > > ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_RecognizeSpeech : public BaseClass {
    private:
@@ -187,6 +286,23 @@ class SpeechRecognition final {
     }
     // disable synchronous version of this method
     ::grpc::Status RecognizeSpeech(::grpc::ServerContext* /*context*/, ::grpc::ServerReader< ::rero::Audio>* /*reader*/, ::rero::SpeechRecognitionResult* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_SetVocab : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_SetVocab() {
+      ::grpc::Service::MarkMethodGeneric(1);
+    }
+    ~WithGenericMethod_SetVocab() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SetVocab(::grpc::ServerContext* /*context*/, const ::rero::Vocab* /*request*/, ::rero::VocabResult* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -209,6 +325,26 @@ class SpeechRecognition final {
     }
     void RequestRecognizeSpeech(::grpc::ServerContext* context, ::grpc::ServerAsyncReader< ::grpc::ByteBuffer, ::grpc::ByteBuffer>* reader, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncClientStreaming(0, context, reader, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_SetVocab : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_SetVocab() {
+      ::grpc::Service::MarkMethodRaw(1);
+    }
+    ~WithRawMethod_SetVocab() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SetVocab(::grpc::ServerContext* /*context*/, const ::rero::Vocab* /*request*/, ::rero::VocabResult* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestSetVocab(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -249,9 +385,74 @@ class SpeechRecognition final {
     #endif
       { return nullptr; }
   };
-  typedef Service StreamedUnaryService;
+  template <class BaseClass>
+  class ExperimentalWithRawCallbackMethod_SetVocab : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithRawCallbackMethod_SetVocab() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodRawCallback(1,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SetVocab(context, request, response); }));
+    }
+    ~ExperimentalWithRawCallbackMethod_SetVocab() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SetVocab(::grpc::ServerContext* /*context*/, const ::rero::Vocab* /*request*/, ::rero::VocabResult* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* SetVocab(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* SetVocab(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #endif
+      { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_SetVocab : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_SetVocab() {
+      ::grpc::Service::MarkMethodStreamed(1,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::rero::Vocab, ::rero::VocabResult>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::rero::Vocab, ::rero::VocabResult>* streamer) {
+                       return this->StreamedSetVocab(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_SetVocab() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status SetVocab(::grpc::ServerContext* /*context*/, const ::rero::Vocab* /*request*/, ::rero::VocabResult* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedSetVocab(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::rero::Vocab,::rero::VocabResult>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_SetVocab<Service > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef Service StreamedService;
+  typedef WithStreamedUnaryMethod_SetVocab<Service > StreamedService;
 };
 
 }  // namespace rero

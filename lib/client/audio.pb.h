@@ -46,7 +46,7 @@ struct TableStruct_audio_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[2]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[3]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -58,12 +58,16 @@ namespace rero {
 class Audio;
 struct AudioDefaultTypeInternal;
 extern AudioDefaultTypeInternal _Audio_default_instance_;
+class PlayResult;
+struct PlayResultDefaultTypeInternal;
+extern PlayResultDefaultTypeInternal _PlayResult_default_instance_;
 class StreamRequest;
 struct StreamRequestDefaultTypeInternal;
 extern StreamRequestDefaultTypeInternal _StreamRequest_default_instance_;
 }  // namespace rero
 PROTOBUF_NAMESPACE_OPEN
 template<> ::rero::Audio* Arena::CreateMaybeMessage<::rero::Audio>(Arena*);
+template<> ::rero::PlayResult* Arena::CreateMaybeMessage<::rero::PlayResult>(Arena*);
 template<> ::rero::StreamRequest* Arena::CreateMaybeMessage<::rero::StreamRequest>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace rero {
@@ -258,6 +262,161 @@ class StreamRequest PROTOBUF_FINAL :
 };
 // -------------------------------------------------------------------
 
+class PlayResult PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:rero.PlayResult) */ {
+ public:
+  inline PlayResult() : PlayResult(nullptr) {}
+  virtual ~PlayResult();
+  explicit constexpr PlayResult(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  PlayResult(const PlayResult& from);
+  PlayResult(PlayResult&& from) noexcept
+    : PlayResult() {
+    *this = ::std::move(from);
+  }
+
+  inline PlayResult& operator=(const PlayResult& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline PlayResult& operator=(PlayResult&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const PlayResult& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const PlayResult* internal_default_instance() {
+    return reinterpret_cast<const PlayResult*>(
+               &_PlayResult_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    1;
+
+  friend void swap(PlayResult& a, PlayResult& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(PlayResult* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(PlayResult* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline PlayResult* New() const final {
+    return CreateMaybeMessage<PlayResult>(nullptr);
+  }
+
+  PlayResult* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<PlayResult>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const PlayResult& from);
+  void MergeFrom(const PlayResult& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(PlayResult* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "rero.PlayResult";
+  }
+  protected:
+  explicit PlayResult(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_audio_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kPaErrorMsgFieldNumber = 2,
+    kPaErrorCodeFieldNumber = 1,
+  };
+  // string pa_error_msg = 2;
+  void clear_pa_error_msg();
+  const std::string& pa_error_msg() const;
+  void set_pa_error_msg(const std::string& value);
+  void set_pa_error_msg(std::string&& value);
+  void set_pa_error_msg(const char* value);
+  void set_pa_error_msg(const char* value, size_t size);
+  std::string* mutable_pa_error_msg();
+  std::string* release_pa_error_msg();
+  void set_allocated_pa_error_msg(std::string* pa_error_msg);
+  private:
+  const std::string& _internal_pa_error_msg() const;
+  void _internal_set_pa_error_msg(const std::string& value);
+  std::string* _internal_mutable_pa_error_msg();
+  public:
+
+  // uint32 pa_error_code = 1;
+  void clear_pa_error_code();
+  ::PROTOBUF_NAMESPACE_ID::uint32 pa_error_code() const;
+  void set_pa_error_code(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_pa_error_code() const;
+  void _internal_set_pa_error_code(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:rero.PlayResult)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr pa_error_msg_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 pa_error_code_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_audio_2eproto;
+};
+// -------------------------------------------------------------------
+
 class Audio PROTOBUF_FINAL :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:rero.Audio) */ {
  public:
@@ -301,7 +460,7 @@ class Audio PROTOBUF_FINAL :
                &_Audio_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    1;
+    2;
 
   friend void swap(Audio& a, Audio& b) {
     a.Swap(&b);
@@ -609,6 +768,91 @@ inline void StreamRequest::set_bytes_per_sample(::PROTOBUF_NAMESPACE_ID::uint32 
 
 // -------------------------------------------------------------------
 
+// PlayResult
+
+// uint32 pa_error_code = 1;
+inline void PlayResult::clear_pa_error_code() {
+  pa_error_code_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 PlayResult::_internal_pa_error_code() const {
+  return pa_error_code_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 PlayResult::pa_error_code() const {
+  // @@protoc_insertion_point(field_get:rero.PlayResult.pa_error_code)
+  return _internal_pa_error_code();
+}
+inline void PlayResult::_internal_set_pa_error_code(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  pa_error_code_ = value;
+}
+inline void PlayResult::set_pa_error_code(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_pa_error_code(value);
+  // @@protoc_insertion_point(field_set:rero.PlayResult.pa_error_code)
+}
+
+// string pa_error_msg = 2;
+inline void PlayResult::clear_pa_error_msg() {
+  pa_error_msg_.ClearToEmpty();
+}
+inline const std::string& PlayResult::pa_error_msg() const {
+  // @@protoc_insertion_point(field_get:rero.PlayResult.pa_error_msg)
+  return _internal_pa_error_msg();
+}
+inline void PlayResult::set_pa_error_msg(const std::string& value) {
+  _internal_set_pa_error_msg(value);
+  // @@protoc_insertion_point(field_set:rero.PlayResult.pa_error_msg)
+}
+inline std::string* PlayResult::mutable_pa_error_msg() {
+  // @@protoc_insertion_point(field_mutable:rero.PlayResult.pa_error_msg)
+  return _internal_mutable_pa_error_msg();
+}
+inline const std::string& PlayResult::_internal_pa_error_msg() const {
+  return pa_error_msg_.Get();
+}
+inline void PlayResult::_internal_set_pa_error_msg(const std::string& value) {
+  
+  pa_error_msg_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void PlayResult::set_pa_error_msg(std::string&& value) {
+  
+  pa_error_msg_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:rero.PlayResult.pa_error_msg)
+}
+inline void PlayResult::set_pa_error_msg(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  pa_error_msg_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:rero.PlayResult.pa_error_msg)
+}
+inline void PlayResult::set_pa_error_msg(const char* value,
+    size_t size) {
+  
+  pa_error_msg_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:rero.PlayResult.pa_error_msg)
+}
+inline std::string* PlayResult::_internal_mutable_pa_error_msg() {
+  
+  return pa_error_msg_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* PlayResult::release_pa_error_msg() {
+  // @@protoc_insertion_point(field_release:rero.PlayResult.pa_error_msg)
+  return pa_error_msg_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void PlayResult::set_allocated_pa_error_msg(std::string* pa_error_msg) {
+  if (pa_error_msg != nullptr) {
+    
+  } else {
+    
+  }
+  pa_error_msg_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), pa_error_msg,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:rero.PlayResult.pa_error_msg)
+}
+
+// -------------------------------------------------------------------
+
 // Audio
 
 // uint32 num_samples = 1;
@@ -775,6 +1019,8 @@ inline void Audio::set_allocated_raw_data(std::string* raw_data) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 
