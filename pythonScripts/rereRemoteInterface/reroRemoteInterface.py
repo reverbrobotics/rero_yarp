@@ -59,7 +59,7 @@ class AudioReroRecorderModule(yarp.RFModule):
         self.handle_port.open('/' + self.module_name)
         # Create a port to receive an audio object
         self.audio_out_port = yarp.BufferedPortSound()
-        self.audio_out_port.open('/' + self.module_name + '/rawAudio:i')
+        self.audio_out_port.open('/' + self.module_name + '/rawAudio:o')
 
 
         host = rf.findGroup("server").check("host",
@@ -149,23 +149,15 @@ class AudioReroRecorderModule(yarp.RFModule):
     
         data = next(self.audio_stream)
         print("getting data")
-        print(type(data.raw_data))
-        print(len(data.raw_data))
         yarpSound = self.audio_out_port.prepare()
-        #yarpSound = yarp.Sound()
         shortArray = np.frombuffer(data.raw_data, dtype=np.short)
         yarpSound.resize(self.request.frames_per_buffer,2)
         yarpSound.setFrequency(self.request.sample_rate)
         for i in range(self.request.frames_per_buffer*2):
-            #print(type(shortArray[i]),(type(i//2)))
             yarpSound.setSafe(int(shortArray[i]),i//2,i%2)
 
-        #yarpSound.set(data.raw_data,self.request.frames_per_buffer,0)
-        #yarpSound.setFrequency(self.request.sample_rate)
-        print(shortArray)
-        print(len(shortArray))
-        print(yarpSound)
         if(self.audio_out_port.getOutputCount()):
+            print("writing in the port")
             self.audio_out_port.write()
         return True
 
