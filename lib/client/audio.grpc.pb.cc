@@ -6,19 +6,19 @@
 #include "audio.grpc.pb.h"
 
 #include <functional>
-#include <grpcpp/impl/codegen/async_stream.h>
-#include <grpcpp/impl/codegen/async_unary_call.h>
-#include <grpcpp/impl/codegen/channel_interface.h>
-#include <grpcpp/impl/codegen/client_unary_call.h>
-#include <grpcpp/impl/codegen/client_callback.h>
-#include <grpcpp/impl/codegen/message_allocator.h>
-#include <grpcpp/impl/codegen/method_handler.h>
-#include <grpcpp/impl/codegen/rpc_service_method.h>
-#include <grpcpp/impl/codegen/server_callback.h>
-#include <grpcpp/impl/codegen/server_callback_handlers.h>
-#include <grpcpp/impl/codegen/server_context.h>
-#include <grpcpp/impl/codegen/service_type.h>
-#include <grpcpp/impl/codegen/sync_stream.h>
+#include <grpcpp/support/async_stream.h>
+#include <grpcpp/support/async_unary_call.h>
+#include <grpcpp/impl/channel_interface.h>
+#include <grpcpp/impl/client_unary_call.h>
+#include <grpcpp/support/client_callback.h>
+#include <grpcpp/support/message_allocator.h>
+#include <grpcpp/support/method_handler.h>
+#include <grpcpp/impl/rpc_service_method.h>
+#include <grpcpp/support/server_callback.h>
+#include <grpcpp/impl/server_callback_handlers.h>
+#include <grpcpp/server_context.h>
+#include <grpcpp/impl/service_type.h>
+#include <grpcpp/support/sync_stream.h>
 namespace rero {
 
 static const char* AudioStreamer_method_names[] = {
@@ -28,20 +28,20 @@ static const char* AudioStreamer_method_names[] = {
 
 std::unique_ptr< AudioStreamer::Stub> AudioStreamer::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
   (void)options;
-  std::unique_ptr< AudioStreamer::Stub> stub(new AudioStreamer::Stub(channel));
+  std::unique_ptr< AudioStreamer::Stub> stub(new AudioStreamer::Stub(channel, options));
   return stub;
 }
 
-AudioStreamer::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
-  : channel_(channel), rpcmethod_GetStream_(AudioStreamer_method_names[0], ::grpc::internal::RpcMethod::SERVER_STREAMING, channel)
-  , rpcmethod_PlayAudio_(AudioStreamer_method_names[1], ::grpc::internal::RpcMethod::CLIENT_STREAMING, channel)
+AudioStreamer::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options)
+  : channel_(channel), rpcmethod_GetStream_(AudioStreamer_method_names[0], options.suffix_for_stats(),::grpc::internal::RpcMethod::SERVER_STREAMING, channel)
+  , rpcmethod_PlayAudio_(AudioStreamer_method_names[1], options.suffix_for_stats(),::grpc::internal::RpcMethod::CLIENT_STREAMING, channel)
   {}
 
 ::grpc::ClientReader< ::rero::Audio>* AudioStreamer::Stub::GetStreamRaw(::grpc::ClientContext* context, const ::rero::StreamRequest& request) {
   return ::grpc::internal::ClientReaderFactory< ::rero::Audio>::Create(channel_.get(), rpcmethod_GetStream_, context, request);
 }
 
-void AudioStreamer::Stub::experimental_async::GetStream(::grpc::ClientContext* context, const ::rero::StreamRequest* request, ::grpc::experimental::ClientReadReactor< ::rero::Audio>* reactor) {
+void AudioStreamer::Stub::async::GetStream(::grpc::ClientContext* context, const ::rero::StreamRequest* request, ::grpc::ClientReadReactor< ::rero::Audio>* reactor) {
   ::grpc::internal::ClientCallbackReaderFactory< ::rero::Audio>::Create(stub_->channel_.get(), stub_->rpcmethod_GetStream_, context, request, reactor);
 }
 
@@ -57,7 +57,7 @@ void AudioStreamer::Stub::experimental_async::GetStream(::grpc::ClientContext* c
   return ::grpc::internal::ClientWriterFactory< ::rero::Audio>::Create(channel_.get(), rpcmethod_PlayAudio_, context, response);
 }
 
-void AudioStreamer::Stub::experimental_async::PlayAudio(::grpc::ClientContext* context, ::rero::PlayResult* response, ::grpc::experimental::ClientWriteReactor< ::rero::Audio>* reactor) {
+void AudioStreamer::Stub::async::PlayAudio(::grpc::ClientContext* context, ::rero::PlayResult* response, ::grpc::ClientWriteReactor< ::rero::Audio>* reactor) {
   ::grpc::internal::ClientCallbackWriterFactory< ::rero::Audio>::Create(stub_->channel_.get(), stub_->rpcmethod_PlayAudio_, context, response, reactor);
 }
 

@@ -7,24 +7,23 @@
 #include "audio.pb.h"
 
 #include <functional>
-#include <grpc/impl/codegen/port_platform.h>
-#include <grpcpp/impl/codegen/async_generic_service.h>
-#include <grpcpp/impl/codegen/async_stream.h>
-#include <grpcpp/impl/codegen/async_unary_call.h>
-#include <grpcpp/impl/codegen/client_callback.h>
-#include <grpcpp/impl/codegen/client_context.h>
-#include <grpcpp/impl/codegen/completion_queue.h>
-#include <grpcpp/impl/codegen/message_allocator.h>
-#include <grpcpp/impl/codegen/method_handler.h>
-#include <grpcpp/impl/codegen/proto_utils.h>
-#include <grpcpp/impl/codegen/rpc_method.h>
-#include <grpcpp/impl/codegen/server_callback.h>
-#include <grpcpp/impl/codegen/server_callback_handlers.h>
-#include <grpcpp/impl/codegen/server_context.h>
-#include <grpcpp/impl/codegen/service_type.h>
-#include <grpcpp/impl/codegen/status.h>
-#include <grpcpp/impl/codegen/stub_options.h>
-#include <grpcpp/impl/codegen/sync_stream.h>
+#include <grpcpp/generic/async_generic_service.h>
+#include <grpcpp/support/async_stream.h>
+#include <grpcpp/support/async_unary_call.h>
+#include <grpcpp/support/client_callback.h>
+#include <grpcpp/client_context.h>
+#include <grpcpp/completion_queue.h>
+#include <grpcpp/support/message_allocator.h>
+#include <grpcpp/support/method_handler.h>
+#include <grpcpp/impl/proto_utils.h>
+#include <grpcpp/impl/rpc_method.h>
+#include <grpcpp/support/server_callback.h>
+#include <grpcpp/impl/server_callback_handlers.h>
+#include <grpcpp/server_context.h>
+#include <grpcpp/impl/service_type.h>
+#include <grpcpp/support/status.h>
+#include <grpcpp/support/stub_options.h>
+#include <grpcpp/support/sync_stream.h>
 
 namespace rero {
 
@@ -55,29 +54,17 @@ class AudioStreamer final {
     std::unique_ptr< ::grpc::ClientAsyncWriterInterface< ::rero::Audio>> PrepareAsyncPlayAudio(::grpc::ClientContext* context, ::rero::PlayResult* response, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncWriterInterface< ::rero::Audio>>(PrepareAsyncPlayAudioRaw(context, response, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       // Sends a greeting
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetStream(::grpc::ClientContext* context, const ::rero::StreamRequest* request, ::grpc::ClientReadReactor< ::rero::Audio>* reactor) = 0;
-      #else
-      virtual void GetStream(::grpc::ClientContext* context, const ::rero::StreamRequest* request, ::grpc::experimental::ClientReadReactor< ::rero::Audio>* reactor) = 0;
-      #endif
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void PlayAudio(::grpc::ClientContext* context, ::rero::PlayResult* response, ::grpc::ClientWriteReactor< ::rero::Audio>* reactor) = 0;
-      #else
-      virtual void PlayAudio(::grpc::ClientContext* context, ::rero::PlayResult* response, ::grpc::experimental::ClientWriteReactor< ::rero::Audio>* reactor) = 0;
-      #endif
     };
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    typedef class experimental_async_interface async_interface;
-    #endif
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    async_interface* async() { return experimental_async(); }
-    #endif
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
-  private:
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
+   private:
     virtual ::grpc::ClientReaderInterface< ::rero::Audio>* GetStreamRaw(::grpc::ClientContext* context, const ::rero::StreamRequest& request) = 0;
     virtual ::grpc::ClientAsyncReaderInterface< ::rero::Audio>* AsyncGetStreamRaw(::grpc::ClientContext* context, const ::rero::StreamRequest& request, ::grpc::CompletionQueue* cq, void* tag) = 0;
     virtual ::grpc::ClientAsyncReaderInterface< ::rero::Audio>* PrepareAsyncGetStreamRaw(::grpc::ClientContext* context, const ::rero::StreamRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -87,7 +74,7 @@ class AudioStreamer final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     std::unique_ptr< ::grpc::ClientReader< ::rero::Audio>> GetStream(::grpc::ClientContext* context, const ::rero::StreamRequest& request) {
       return std::unique_ptr< ::grpc::ClientReader< ::rero::Audio>>(GetStreamRaw(context, request));
     }
@@ -106,30 +93,22 @@ class AudioStreamer final {
     std::unique_ptr< ::grpc::ClientAsyncWriter< ::rero::Audio>> PrepareAsyncPlayAudio(::grpc::ClientContext* context, ::rero::PlayResult* response, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncWriter< ::rero::Audio>>(PrepareAsyncPlayAudioRaw(context, response, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetStream(::grpc::ClientContext* context, const ::rero::StreamRequest* request, ::grpc::ClientReadReactor< ::rero::Audio>* reactor) override;
-      #else
-      void GetStream(::grpc::ClientContext* context, const ::rero::StreamRequest* request, ::grpc::experimental::ClientReadReactor< ::rero::Audio>* reactor) override;
-      #endif
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void PlayAudio(::grpc::ClientContext* context, ::rero::PlayResult* response, ::grpc::ClientWriteReactor< ::rero::Audio>* reactor) override;
-      #else
-      void PlayAudio(::grpc::ClientContext* context, ::rero::PlayResult* response, ::grpc::experimental::ClientWriteReactor< ::rero::Audio>* reactor) override;
-      #endif
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientReader< ::rero::Audio>* GetStreamRaw(::grpc::ClientContext* context, const ::rero::StreamRequest& request) override;
     ::grpc::ClientAsyncReader< ::rero::Audio>* AsyncGetStreamRaw(::grpc::ClientContext* context, const ::rero::StreamRequest& request, ::grpc::CompletionQueue* cq, void* tag) override;
     ::grpc::ClientAsyncReader< ::rero::Audio>* PrepareAsyncGetStreamRaw(::grpc::ClientContext* context, const ::rero::StreamRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -191,27 +170,17 @@ class AudioStreamer final {
   };
   typedef WithAsyncMethod_GetStream<WithAsyncMethod_PlayAudio<Service > > AsyncService;
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetStream : public BaseClass {
+  class WithCallbackMethod_GetStream : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetStream() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(0,
+    WithCallbackMethod_GetStream() {
+      ::grpc::Service::MarkMethodCallback(0,
           new ::grpc::internal::CallbackServerStreamingHandler< ::rero::StreamRequest, ::rero::Audio>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::rero::StreamRequest* request) { return this->GetStream(context, request); }));
+                   ::grpc::CallbackServerContext* context, const ::rero::StreamRequest* request) { return this->GetStream(context, request); }));
     }
-    ~ExperimentalWithCallbackMethod_GetStream() override {
+    ~WithCallbackMethod_GetStream() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -219,37 +188,21 @@ class AudioStreamer final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerWriteReactor< ::rero::Audio>* GetStream(
-      ::grpc::CallbackServerContext* /*context*/, const ::rero::StreamRequest* /*request*/)
-    #else
-    virtual ::grpc::experimental::ServerWriteReactor< ::rero::Audio>* GetStream(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::rero::StreamRequest* /*request*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::rero::StreamRequest* /*request*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_PlayAudio : public BaseClass {
+  class WithCallbackMethod_PlayAudio : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_PlayAudio() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(1,
+    WithCallbackMethod_PlayAudio() {
+      ::grpc::Service::MarkMethodCallback(1,
           new ::grpc::internal::CallbackClientStreamingHandler< ::rero::Audio, ::rero::PlayResult>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, ::rero::PlayResult* response) { return this->PlayAudio(context, response); }));
+                   ::grpc::CallbackServerContext* context, ::rero::PlayResult* response) { return this->PlayAudio(context, response); }));
     }
-    ~ExperimentalWithCallbackMethod_PlayAudio() override {
+    ~WithCallbackMethod_PlayAudio() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -257,20 +210,11 @@ class AudioStreamer final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerReadReactor< ::rero::Audio>* PlayAudio(
-      ::grpc::CallbackServerContext* /*context*/, ::rero::PlayResult* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerReadReactor< ::rero::Audio>* PlayAudio(
-      ::grpc::experimental::CallbackServerContext* /*context*/, ::rero::PlayResult* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, ::rero::PlayResult* /*response*/)  { return nullptr; }
   };
-  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_GetStream<ExperimentalWithCallbackMethod_PlayAudio<Service > > CallbackService;
-  #endif
-
-  typedef ExperimentalWithCallbackMethod_GetStream<ExperimentalWithCallbackMethod_PlayAudio<Service > > ExperimentalCallbackService;
+  typedef WithCallbackMethod_GetStream<WithCallbackMethod_PlayAudio<Service > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_GetStream : public BaseClass {
    private:
@@ -346,27 +290,17 @@ class AudioStreamer final {
     }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetStream : public BaseClass {
+  class WithRawCallbackMethod_GetStream : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetStream() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(0,
+    WithRawCallbackMethod_GetStream() {
+      ::grpc::Service::MarkMethodRawCallback(0,
           new ::grpc::internal::CallbackServerStreamingHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const::grpc::ByteBuffer* request) { return this->GetStream(context, request); }));
+                   ::grpc::CallbackServerContext* context, const::grpc::ByteBuffer* request) { return this->GetStream(context, request); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetStream() override {
+    ~WithRawCallbackMethod_GetStream() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -374,37 +308,21 @@ class AudioStreamer final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerWriteReactor< ::grpc::ByteBuffer>* GetStream(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/)
-    #else
-    virtual ::grpc::experimental::ServerWriteReactor< ::grpc::ByteBuffer>* GetStream(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_PlayAudio : public BaseClass {
+  class WithRawCallbackMethod_PlayAudio : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_PlayAudio() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(1,
+    WithRawCallbackMethod_PlayAudio() {
+      ::grpc::Service::MarkMethodRawCallback(1,
           new ::grpc::internal::CallbackClientStreamingHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, ::grpc::ByteBuffer* response) { return this->PlayAudio(context, response); }));
+                   ::grpc::CallbackServerContext* context, ::grpc::ByteBuffer* response) { return this->PlayAudio(context, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_PlayAudio() override {
+    ~WithRawCallbackMethod_PlayAudio() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -412,14 +330,8 @@ class AudioStreamer final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerReadReactor< ::grpc::ByteBuffer>* PlayAudio(
-      ::grpc::CallbackServerContext* /*context*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerReadReactor< ::grpc::ByteBuffer>* PlayAudio(
-      ::grpc::experimental::CallbackServerContext* /*context*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   typedef Service StreamedUnaryService;
   template <class BaseClass>

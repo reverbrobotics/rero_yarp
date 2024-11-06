@@ -7,24 +7,23 @@
 #include "hotword.pb.h"
 
 #include <functional>
-#include <grpc/impl/codegen/port_platform.h>
-#include <grpcpp/impl/codegen/async_generic_service.h>
-#include <grpcpp/impl/codegen/async_stream.h>
-#include <grpcpp/impl/codegen/async_unary_call.h>
-#include <grpcpp/impl/codegen/client_callback.h>
-#include <grpcpp/impl/codegen/client_context.h>
-#include <grpcpp/impl/codegen/completion_queue.h>
-#include <grpcpp/impl/codegen/message_allocator.h>
-#include <grpcpp/impl/codegen/method_handler.h>
-#include <grpcpp/impl/codegen/proto_utils.h>
-#include <grpcpp/impl/codegen/rpc_method.h>
-#include <grpcpp/impl/codegen/server_callback.h>
-#include <grpcpp/impl/codegen/server_callback_handlers.h>
-#include <grpcpp/impl/codegen/server_context.h>
-#include <grpcpp/impl/codegen/service_type.h>
-#include <grpcpp/impl/codegen/status.h>
-#include <grpcpp/impl/codegen/stub_options.h>
-#include <grpcpp/impl/codegen/sync_stream.h>
+#include <grpcpp/generic/async_generic_service.h>
+#include <grpcpp/support/async_stream.h>
+#include <grpcpp/support/async_unary_call.h>
+#include <grpcpp/support/client_callback.h>
+#include <grpcpp/client_context.h>
+#include <grpcpp/completion_queue.h>
+#include <grpcpp/support/message_allocator.h>
+#include <grpcpp/support/method_handler.h>
+#include <grpcpp/impl/proto_utils.h>
+#include <grpcpp/impl/rpc_method.h>
+#include <grpcpp/support/server_callback.h>
+#include <grpcpp/impl/server_callback_handlers.h>
+#include <grpcpp/server_context.h>
+#include <grpcpp/impl/service_type.h>
+#include <grpcpp/support/status.h>
+#include <grpcpp/support/stub_options.h>
+#include <grpcpp/support/sync_stream.h>
 
 namespace rero {
 
@@ -77,45 +76,21 @@ class HotwordDetection final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rero::Result>> PrepareAsyncPersistHotword(::grpc::ClientContext* context, const ::rero::HotwordFileName& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rero::Result>>(PrepareAsyncPersistHotwordRaw(context, request, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual ~async_interface() {}
       virtual void StartHotwordStream(::grpc::ClientContext* context, ::grpc::ClientBidiReactor< ::rero::Audio,::rero::HotwordResult>* reactor) = 0;
-      #else
-      virtual void StartHotwordStream(::grpc::ClientContext* context, ::grpc::experimental::ClientBidiReactor< ::rero::Audio,::rero::HotwordResult>* reactor) = 0;
-      #endif
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void RecognizeHotword(::grpc::ClientContext* context, ::rero::HotwordResult* response, ::grpc::ClientWriteReactor< ::rero::Audio>* reactor) = 0;
-      #else
-      virtual void RecognizeHotword(::grpc::ClientContext* context, ::rero::HotwordResult* response, ::grpc::experimental::ClientWriteReactor< ::rero::Audio>* reactor) = 0;
-      #endif
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetEmbedding(::grpc::ClientContext* context, ::rero::RawEmbedding* response, ::grpc::ClientWriteReactor< ::rero::Audio>* reactor) = 0;
-      #else
-      virtual void GetEmbedding(::grpc::ClientContext* context, ::rero::RawEmbedding* response, ::grpc::experimental::ClientWriteReactor< ::rero::Audio>* reactor) = 0;
-      #endif
       virtual void AddEmbeddingToHotword(::grpc::ClientContext* context, const ::rero::HotwordEmbedding* request, ::rero::Result* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void AddEmbeddingToHotword(::grpc::ClientContext* context, const ::rero::HotwordEmbedding* request, ::rero::Result* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void AddEmbeddingToHotword(::grpc::ClientContext* context, const ::rero::HotwordEmbedding* request, ::rero::Result* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       virtual void PersistHotword(::grpc::ClientContext* context, const ::rero::HotwordFileName* request, ::rero::Result* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void PersistHotword(::grpc::ClientContext* context, const ::rero::HotwordFileName* request, ::rero::Result* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void PersistHotword(::grpc::ClientContext* context, const ::rero::HotwordFileName* request, ::rero::Result* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
     };
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    typedef class experimental_async_interface async_interface;
-    #endif
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    async_interface* async() { return experimental_async(); }
-    #endif
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
-  private:
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
+   private:
     virtual ::grpc::ClientReaderWriterInterface< ::rero::Audio, ::rero::HotwordResult>* StartHotwordStreamRaw(::grpc::ClientContext* context) = 0;
     virtual ::grpc::ClientAsyncReaderWriterInterface< ::rero::Audio, ::rero::HotwordResult>* AsyncStartHotwordStreamRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) = 0;
     virtual ::grpc::ClientAsyncReaderWriterInterface< ::rero::Audio, ::rero::HotwordResult>* PrepareAsyncStartHotwordStreamRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) = 0;
@@ -132,7 +107,7 @@ class HotwordDetection final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     std::unique_ptr< ::grpc::ClientReaderWriter< ::rero::Audio, ::rero::HotwordResult>> StartHotwordStream(::grpc::ClientContext* context) {
       return std::unique_ptr< ::grpc::ClientReaderWriter< ::rero::Audio, ::rero::HotwordResult>>(StartHotwordStreamRaw(context));
     }
@@ -174,47 +149,27 @@ class HotwordDetection final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::rero::Result>> PrepareAsyncPersistHotword(::grpc::ClientContext* context, const ::rero::HotwordFileName& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::rero::Result>>(PrepareAsyncPersistHotwordRaw(context, request, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void StartHotwordStream(::grpc::ClientContext* context, ::grpc::ClientBidiReactor< ::rero::Audio,::rero::HotwordResult>* reactor) override;
-      #else
-      void StartHotwordStream(::grpc::ClientContext* context, ::grpc::experimental::ClientBidiReactor< ::rero::Audio,::rero::HotwordResult>* reactor) override;
-      #endif
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void RecognizeHotword(::grpc::ClientContext* context, ::rero::HotwordResult* response, ::grpc::ClientWriteReactor< ::rero::Audio>* reactor) override;
-      #else
-      void RecognizeHotword(::grpc::ClientContext* context, ::rero::HotwordResult* response, ::grpc::experimental::ClientWriteReactor< ::rero::Audio>* reactor) override;
-      #endif
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetEmbedding(::grpc::ClientContext* context, ::rero::RawEmbedding* response, ::grpc::ClientWriteReactor< ::rero::Audio>* reactor) override;
-      #else
-      void GetEmbedding(::grpc::ClientContext* context, ::rero::RawEmbedding* response, ::grpc::experimental::ClientWriteReactor< ::rero::Audio>* reactor) override;
-      #endif
       void AddEmbeddingToHotword(::grpc::ClientContext* context, const ::rero::HotwordEmbedding* request, ::rero::Result* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void AddEmbeddingToHotword(::grpc::ClientContext* context, const ::rero::HotwordEmbedding* request, ::rero::Result* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void AddEmbeddingToHotword(::grpc::ClientContext* context, const ::rero::HotwordEmbedding* request, ::rero::Result* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void PersistHotword(::grpc::ClientContext* context, const ::rero::HotwordFileName* request, ::rero::Result* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void PersistHotword(::grpc::ClientContext* context, const ::rero::HotwordFileName* request, ::rero::Result* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void PersistHotword(::grpc::ClientContext* context, const ::rero::HotwordFileName* request, ::rero::Result* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientReaderWriter< ::rero::Audio, ::rero::HotwordResult>* StartHotwordStreamRaw(::grpc::ClientContext* context) override;
     ::grpc::ClientAsyncReaderWriter< ::rero::Audio, ::rero::HotwordResult>* AsyncStartHotwordStreamRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) override;
     ::grpc::ClientAsyncReaderWriter< ::rero::Audio, ::rero::HotwordResult>* PrepareAsyncStartHotwordStreamRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) override;
@@ -348,27 +303,17 @@ class HotwordDetection final {
   };
   typedef WithAsyncMethod_StartHotwordStream<WithAsyncMethod_RecognizeHotword<WithAsyncMethod_GetEmbedding<WithAsyncMethod_AddEmbeddingToHotword<WithAsyncMethod_PersistHotword<Service > > > > > AsyncService;
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_StartHotwordStream : public BaseClass {
+  class WithCallbackMethod_StartHotwordStream : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_StartHotwordStream() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(0,
+    WithCallbackMethod_StartHotwordStream() {
+      ::grpc::Service::MarkMethodCallback(0,
           new ::grpc::internal::CallbackBidiHandler< ::rero::Audio, ::rero::HotwordResult>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context) { return this->StartHotwordStream(context); }));
+                   ::grpc::CallbackServerContext* context) { return this->StartHotwordStream(context); }));
     }
-    ~ExperimentalWithCallbackMethod_StartHotwordStream() override {
+    ~WithCallbackMethod_StartHotwordStream() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -376,37 +321,22 @@ class HotwordDetection final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerBidiReactor< ::rero::Audio, ::rero::HotwordResult>* StartHotwordStream(
       ::grpc::CallbackServerContext* /*context*/)
-    #else
-    virtual ::grpc::experimental::ServerBidiReactor< ::rero::Audio, ::rero::HotwordResult>* StartHotwordStream(
-      ::grpc::experimental::CallbackServerContext* /*context*/)
-    #endif
       { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_RecognizeHotword : public BaseClass {
+  class WithCallbackMethod_RecognizeHotword : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_RecognizeHotword() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(1,
+    WithCallbackMethod_RecognizeHotword() {
+      ::grpc::Service::MarkMethodCallback(1,
           new ::grpc::internal::CallbackClientStreamingHandler< ::rero::Audio, ::rero::HotwordResult>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, ::rero::HotwordResult* response) { return this->RecognizeHotword(context, response); }));
+                   ::grpc::CallbackServerContext* context, ::rero::HotwordResult* response) { return this->RecognizeHotword(context, response); }));
     }
-    ~ExperimentalWithCallbackMethod_RecognizeHotword() override {
+    ~WithCallbackMethod_RecognizeHotword() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -414,37 +344,21 @@ class HotwordDetection final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerReadReactor< ::rero::Audio>* RecognizeHotword(
-      ::grpc::CallbackServerContext* /*context*/, ::rero::HotwordResult* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerReadReactor< ::rero::Audio>* RecognizeHotword(
-      ::grpc::experimental::CallbackServerContext* /*context*/, ::rero::HotwordResult* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, ::rero::HotwordResult* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetEmbedding : public BaseClass {
+  class WithCallbackMethod_GetEmbedding : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetEmbedding() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(2,
+    WithCallbackMethod_GetEmbedding() {
+      ::grpc::Service::MarkMethodCallback(2,
           new ::grpc::internal::CallbackClientStreamingHandler< ::rero::Audio, ::rero::RawEmbedding>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, ::rero::RawEmbedding* response) { return this->GetEmbedding(context, response); }));
+                   ::grpc::CallbackServerContext* context, ::rero::RawEmbedding* response) { return this->GetEmbedding(context, response); }));
     }
-    ~ExperimentalWithCallbackMethod_GetEmbedding() override {
+    ~WithCallbackMethod_GetEmbedding() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -452,46 +366,26 @@ class HotwordDetection final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerReadReactor< ::rero::Audio>* GetEmbedding(
-      ::grpc::CallbackServerContext* /*context*/, ::rero::RawEmbedding* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerReadReactor< ::rero::Audio>* GetEmbedding(
-      ::grpc::experimental::CallbackServerContext* /*context*/, ::rero::RawEmbedding* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, ::rero::RawEmbedding* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_AddEmbeddingToHotword : public BaseClass {
+  class WithCallbackMethod_AddEmbeddingToHotword : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_AddEmbeddingToHotword() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(3,
+    WithCallbackMethod_AddEmbeddingToHotword() {
+      ::grpc::Service::MarkMethodCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::rero::HotwordEmbedding, ::rero::Result>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::rero::HotwordEmbedding* request, ::rero::Result* response) { return this->AddEmbeddingToHotword(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::rero::HotwordEmbedding* request, ::rero::Result* response) { return this->AddEmbeddingToHotword(context, request, response); }));}
     void SetMessageAllocatorFor_AddEmbeddingToHotword(
-        ::grpc::experimental::MessageAllocator< ::rero::HotwordEmbedding, ::rero::Result>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::rero::HotwordEmbedding, ::rero::Result>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(3);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::rero::HotwordEmbedding, ::rero::Result>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_AddEmbeddingToHotword() override {
+    ~WithCallbackMethod_AddEmbeddingToHotword() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -499,46 +393,26 @@ class HotwordDetection final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* AddEmbeddingToHotword(
-      ::grpc::CallbackServerContext* /*context*/, const ::rero::HotwordEmbedding* /*request*/, ::rero::Result* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* AddEmbeddingToHotword(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::rero::HotwordEmbedding* /*request*/, ::rero::Result* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::rero::HotwordEmbedding* /*request*/, ::rero::Result* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_PersistHotword : public BaseClass {
+  class WithCallbackMethod_PersistHotword : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_PersistHotword() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(4,
+    WithCallbackMethod_PersistHotword() {
+      ::grpc::Service::MarkMethodCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::rero::HotwordFileName, ::rero::Result>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::rero::HotwordFileName* request, ::rero::Result* response) { return this->PersistHotword(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::rero::HotwordFileName* request, ::rero::Result* response) { return this->PersistHotword(context, request, response); }));}
     void SetMessageAllocatorFor_PersistHotword(
-        ::grpc::experimental::MessageAllocator< ::rero::HotwordFileName, ::rero::Result>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::rero::HotwordFileName, ::rero::Result>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(4);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::rero::HotwordFileName, ::rero::Result>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_PersistHotword() override {
+    ~WithCallbackMethod_PersistHotword() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -546,20 +420,11 @@ class HotwordDetection final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* PersistHotword(
-      ::grpc::CallbackServerContext* /*context*/, const ::rero::HotwordFileName* /*request*/, ::rero::Result* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* PersistHotword(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::rero::HotwordFileName* /*request*/, ::rero::Result* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::rero::HotwordFileName* /*request*/, ::rero::Result* /*response*/)  { return nullptr; }
   };
-  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_StartHotwordStream<ExperimentalWithCallbackMethod_RecognizeHotword<ExperimentalWithCallbackMethod_GetEmbedding<ExperimentalWithCallbackMethod_AddEmbeddingToHotword<ExperimentalWithCallbackMethod_PersistHotword<Service > > > > > CallbackService;
-  #endif
-
-  typedef ExperimentalWithCallbackMethod_StartHotwordStream<ExperimentalWithCallbackMethod_RecognizeHotword<ExperimentalWithCallbackMethod_GetEmbedding<ExperimentalWithCallbackMethod_AddEmbeddingToHotword<ExperimentalWithCallbackMethod_PersistHotword<Service > > > > > ExperimentalCallbackService;
+  typedef WithCallbackMethod_StartHotwordStream<WithCallbackMethod_RecognizeHotword<WithCallbackMethod_GetEmbedding<WithCallbackMethod_AddEmbeddingToHotword<WithCallbackMethod_PersistHotword<Service > > > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_StartHotwordStream : public BaseClass {
    private:
@@ -746,27 +611,17 @@ class HotwordDetection final {
     }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_StartHotwordStream : public BaseClass {
+  class WithRawCallbackMethod_StartHotwordStream : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_StartHotwordStream() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(0,
+    WithRawCallbackMethod_StartHotwordStream() {
+      ::grpc::Service::MarkMethodRawCallback(0,
           new ::grpc::internal::CallbackBidiHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context) { return this->StartHotwordStream(context); }));
+                   ::grpc::CallbackServerContext* context) { return this->StartHotwordStream(context); }));
     }
-    ~ExperimentalWithRawCallbackMethod_StartHotwordStream() override {
+    ~WithRawCallbackMethod_StartHotwordStream() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -774,37 +629,22 @@ class HotwordDetection final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerBidiReactor< ::grpc::ByteBuffer, ::grpc::ByteBuffer>* StartHotwordStream(
       ::grpc::CallbackServerContext* /*context*/)
-    #else
-    virtual ::grpc::experimental::ServerBidiReactor< ::grpc::ByteBuffer, ::grpc::ByteBuffer>* StartHotwordStream(
-      ::grpc::experimental::CallbackServerContext* /*context*/)
-    #endif
       { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_RecognizeHotword : public BaseClass {
+  class WithRawCallbackMethod_RecognizeHotword : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_RecognizeHotword() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(1,
+    WithRawCallbackMethod_RecognizeHotword() {
+      ::grpc::Service::MarkMethodRawCallback(1,
           new ::grpc::internal::CallbackClientStreamingHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, ::grpc::ByteBuffer* response) { return this->RecognizeHotword(context, response); }));
+                   ::grpc::CallbackServerContext* context, ::grpc::ByteBuffer* response) { return this->RecognizeHotword(context, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_RecognizeHotword() override {
+    ~WithRawCallbackMethod_RecognizeHotword() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -812,37 +652,21 @@ class HotwordDetection final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerReadReactor< ::grpc::ByteBuffer>* RecognizeHotword(
-      ::grpc::CallbackServerContext* /*context*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerReadReactor< ::grpc::ByteBuffer>* RecognizeHotword(
-      ::grpc::experimental::CallbackServerContext* /*context*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetEmbedding : public BaseClass {
+  class WithRawCallbackMethod_GetEmbedding : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetEmbedding() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(2,
+    WithRawCallbackMethod_GetEmbedding() {
+      ::grpc::Service::MarkMethodRawCallback(2,
           new ::grpc::internal::CallbackClientStreamingHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, ::grpc::ByteBuffer* response) { return this->GetEmbedding(context, response); }));
+                   ::grpc::CallbackServerContext* context, ::grpc::ByteBuffer* response) { return this->GetEmbedding(context, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetEmbedding() override {
+    ~WithRawCallbackMethod_GetEmbedding() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -850,37 +674,21 @@ class HotwordDetection final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerReadReactor< ::grpc::ByteBuffer>* GetEmbedding(
-      ::grpc::CallbackServerContext* /*context*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerReadReactor< ::grpc::ByteBuffer>* GetEmbedding(
-      ::grpc::experimental::CallbackServerContext* /*context*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_AddEmbeddingToHotword : public BaseClass {
+  class WithRawCallbackMethod_AddEmbeddingToHotword : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_AddEmbeddingToHotword() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(3,
+    WithRawCallbackMethod_AddEmbeddingToHotword() {
+      ::grpc::Service::MarkMethodRawCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->AddEmbeddingToHotword(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->AddEmbeddingToHotword(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_AddEmbeddingToHotword() override {
+    ~WithRawCallbackMethod_AddEmbeddingToHotword() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -888,37 +696,21 @@ class HotwordDetection final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* AddEmbeddingToHotword(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* AddEmbeddingToHotword(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_PersistHotword : public BaseClass {
+  class WithRawCallbackMethod_PersistHotword : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_PersistHotword() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(4,
+    WithRawCallbackMethod_PersistHotword() {
+      ::grpc::Service::MarkMethodRawCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->PersistHotword(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->PersistHotword(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_PersistHotword() override {
+    ~WithRawCallbackMethod_PersistHotword() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -926,14 +718,8 @@ class HotwordDetection final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* PersistHotword(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* PersistHotword(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_AddEmbeddingToHotword : public BaseClass {

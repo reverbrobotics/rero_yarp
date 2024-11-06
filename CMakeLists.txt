@@ -27,8 +27,8 @@ endif( )
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 set(CMAKE_CXX_EXTENSIONS        OFF)
-set(CMAKE_CXX_STANDARD          11)
-set(CMAKE_CXX_STANDARD_REQUIRED 11)
+set(CMAKE_CXX_STANDARD          14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
@@ -60,12 +60,12 @@ include(ICUBcontribHelpers)
 
 ############################################################
 include(FetchContent)
-add_subdirectory( pythonScripts)
+#add_subdirectory( pythonScripts)
 
 FetchContent_Declare(
         gRPC
         GIT_REPOSITORY https://github.com/grpc/grpc
-        GIT_TAG        v1.37.1
+        GIT_TAG        v1.58.0
 )
 set(FETCHCONTENT_QUIET OFF)
 FetchContent_MakeAvailable(gRPC)

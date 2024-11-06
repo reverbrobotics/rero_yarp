@@ -6,19 +6,19 @@
 #include "hotword.grpc.pb.h"
 
 #include <functional>
-#include <grpcpp/impl/codegen/async_stream.h>
-#include <grpcpp/impl/codegen/async_unary_call.h>
-#include <grpcpp/impl/codegen/channel_interface.h>
-#include <grpcpp/impl/codegen/client_unary_call.h>
-#include <grpcpp/impl/codegen/client_callback.h>
-#include <grpcpp/impl/codegen/message_allocator.h>
-#include <grpcpp/impl/codegen/method_handler.h>
-#include <grpcpp/impl/codegen/rpc_service_method.h>
-#include <grpcpp/impl/codegen/server_callback.h>
-#include <grpcpp/impl/codegen/server_callback_handlers.h>
-#include <grpcpp/impl/codegen/server_context.h>
-#include <grpcpp/impl/codegen/service_type.h>
-#include <grpcpp/impl/codegen/sync_stream.h>
+#include <grpcpp/support/async_stream.h>
+#include <grpcpp/support/async_unary_call.h>
+#include <grpcpp/impl/channel_interface.h>
+#include <grpcpp/impl/client_unary_call.h>
+#include <grpcpp/support/client_callback.h>
+#include <grpcpp/support/message_allocator.h>
+#include <grpcpp/support/method_handler.h>
+#include <grpcpp/impl/rpc_service_method.h>
+#include <grpcpp/support/server_callback.h>
+#include <grpcpp/impl/server_callback_handlers.h>
+#include <grpcpp/server_context.h>
+#include <grpcpp/impl/service_type.h>
+#include <grpcpp/support/sync_stream.h>
 namespace rero {
 
 static const char* HotwordDetection_method_names[] = {
@@ -31,23 +31,23 @@ static const char* HotwordDetection_method_names[] = {
 
 std::unique_ptr< HotwordDetection::Stub> HotwordDetection::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
   (void)options;
-  std::unique_ptr< HotwordDetection::Stub> stub(new HotwordDetection::Stub(channel));
+  std::unique_ptr< HotwordDetection::Stub> stub(new HotwordDetection::Stub(channel, options));
   return stub;
 }
 
-HotwordDetection::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
-  : channel_(channel), rpcmethod_StartHotwordStream_(HotwordDetection_method_names[0], ::grpc::internal::RpcMethod::BIDI_STREAMING, channel)
-  , rpcmethod_RecognizeHotword_(HotwordDetection_method_names[1], ::grpc::internal::RpcMethod::CLIENT_STREAMING, channel)
-  , rpcmethod_GetEmbedding_(HotwordDetection_method_names[2], ::grpc::internal::RpcMethod::CLIENT_STREAMING, channel)
-  , rpcmethod_AddEmbeddingToHotword_(HotwordDetection_method_names[3], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_PersistHotword_(HotwordDetection_method_names[4], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+HotwordDetection::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options)
+  : channel_(channel), rpcmethod_StartHotwordStream_(HotwordDetection_method_names[0], options.suffix_for_stats(),::grpc::internal::RpcMethod::BIDI_STREAMING, channel)
+  , rpcmethod_RecognizeHotword_(HotwordDetection_method_names[1], options.suffix_for_stats(),::grpc::internal::RpcMethod::CLIENT_STREAMING, channel)
+  , rpcmethod_GetEmbedding_(HotwordDetection_method_names[2], options.suffix_for_stats(),::grpc::internal::RpcMethod::CLIENT_STREAMING, channel)
+  , rpcmethod_AddEmbeddingToHotword_(HotwordDetection_method_names[3], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_PersistHotword_(HotwordDetection_method_names[4], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::ClientReaderWriter< ::rero::Audio, ::rero::HotwordResult>* HotwordDetection::Stub::StartHotwordStreamRaw(::grpc::ClientContext* context) {
   return ::grpc::internal::ClientReaderWriterFactory< ::rero::Audio, ::rero::HotwordResult>::Create(channel_.get(), rpcmethod_StartHotwordStream_, context);
 }
 
-void HotwordDetection::Stub::experimental_async::StartHotwordStream(::grpc::ClientContext* context, ::grpc::experimental::ClientBidiReactor< ::rero::Audio,::rero::HotwordResult>* reactor) {
+void HotwordDetection::Stub::async::StartHotwordStream(::grpc::ClientContext* context, ::grpc::ClientBidiReactor< ::rero::Audio,::rero::HotwordResult>* reactor) {
   ::grpc::internal::ClientCallbackReaderWriterFactory< ::rero::Audio,::rero::HotwordResult>::Create(stub_->channel_.get(), stub_->rpcmethod_StartHotwordStream_, context, reactor);
 }
 
@@ -63,7 +63,7 @@ void HotwordDetection::Stub::experimental_async::StartHotwordStream(::grpc::Clie
   return ::grpc::internal::ClientWriterFactory< ::rero::Audio>::Create(channel_.get(), rpcmethod_RecognizeHotword_, context, response);
 }
 
-void HotwordDetection::Stub::experimental_async::RecognizeHotword(::grpc::ClientContext* context, ::rero::HotwordResult* response, ::grpc::experimental::ClientWriteReactor< ::rero::Audio>* reactor) {
+void HotwordDetection::Stub::async::RecognizeHotword(::grpc::ClientContext* context, ::rero::HotwordResult* response, ::grpc::ClientWriteReactor< ::rero::Audio>* reactor) {
   ::grpc::internal::ClientCallbackWriterFactory< ::rero::Audio>::Create(stub_->channel_.get(), stub_->rpcmethod_RecognizeHotword_, context, response, reactor);
 }
 
@@ -79,7 +79,7 @@ void HotwordDetection::Stub::experimental_async::RecognizeHotword(::grpc::Client
   return ::grpc::internal::ClientWriterFactory< ::rero::Audio>::Create(channel_.get(), rpcmethod_GetEmbedding_, context, response);
 }
 
-void HotwordDetection::Stub::experimental_async::GetEmbedding(::grpc::ClientContext* context, ::rero::RawEmbedding* response, ::grpc::experimental::ClientWriteReactor< ::rero::Audio>* reactor) {
+void HotwordDetection::Stub::async::GetEmbedding(::grpc::ClientContext* context, ::rero::RawEmbedding* response, ::grpc::ClientWriteReactor< ::rero::Audio>* reactor) {
   ::grpc::internal::ClientCallbackWriterFactory< ::rero::Audio>::Create(stub_->channel_.get(), stub_->rpcmethod_GetEmbedding_, context, response, reactor);
 }
 
@@ -95,11 +95,11 @@ void HotwordDetection::Stub::experimental_async::GetEmbedding(::grpc::ClientCont
   return ::grpc::internal::BlockingUnaryCall< ::rero::HotwordEmbedding, ::rero::Result, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_AddEmbeddingToHotword_, context, request, response);
 }
 
-void HotwordDetection::Stub::experimental_async::AddEmbeddingToHotword(::grpc::ClientContext* context, const ::rero::HotwordEmbedding* request, ::rero::Result* response, std::function<void(::grpc::Status)> f) {
+void HotwordDetection::Stub::async::AddEmbeddingToHotword(::grpc::ClientContext* context, const ::rero::HotwordEmbedding* request, ::rero::Result* response, std::function<void(::grpc::Status)> f) {
   ::grpc::internal::CallbackUnaryCall< ::rero::HotwordEmbedding, ::rero::Result, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_AddEmbeddingToHotword_, context, request, response, std::move(f));
 }
 
-void HotwordDetection::Stub::experimental_async::AddEmbeddingToHotword(::grpc::ClientContext* context, const ::rero::HotwordEmbedding* request, ::rero::Result* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+void HotwordDetection::Stub::async::AddEmbeddingToHotword(::grpc::ClientContext* context, const ::rero::HotwordEmbedding* request, ::rero::Result* response, ::grpc::ClientUnaryReactor* reactor) {
   ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_AddEmbeddingToHotword_, context, request, response, reactor);
 }
 
@@ -118,11 +118,11 @@ void HotwordDetection::Stub::experimental_async::AddEmbeddingToHotword(::grpc::C
   return ::grpc::internal::BlockingUnaryCall< ::rero::HotwordFileName, ::rero::Result, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_PersistHotword_, context, request, response);
 }
 
-void HotwordDetection::Stub::experimental_async::PersistHotword(::grpc::ClientContext* context, const ::rero::HotwordFileName* request, ::rero::Result* response, std::function<void(::grpc::Status)> f) {
+void HotwordDetection::Stub::async::PersistHotword(::grpc::ClientContext* context, const ::rero::HotwordFileName* request, ::rero::Result* response, std::function<void(::grpc::Status)> f) {
   ::grpc::internal::CallbackUnaryCall< ::rero::HotwordFileName, ::rero::Result, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_PersistHotword_, context, request, response, std::move(f));
 }
 
-void HotwordDetection::Stub::experimental_async::PersistHotword(::grpc::ClientContext* context, const ::rero::HotwordFileName* request, ::rero::Result* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+void HotwordDetection::Stub::async::PersistHotword(::grpc::ClientContext* context, const ::rero::HotwordFileName* request, ::rero::Result* response, ::grpc::ClientUnaryReactor* reactor) {
   ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_PersistHotword_, context, request, response, reactor);
 }
 

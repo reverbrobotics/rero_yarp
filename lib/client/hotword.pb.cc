@@ -4,176 +4,251 @@
 #include "hotword.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/descriptor.h>
-#include <google/protobuf/generated_message_reflection.h>
-#include <google/protobuf/reflection_ops.h>
-#include <google/protobuf/wire_format.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/descriptor.h"
+#include "google/protobuf/generated_message_reflection.h"
+#include "google/protobuf/reflection_ops.h"
+#include "google/protobuf/wire_format.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace rero {
-constexpr HotwordResult::HotwordResult(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : hotword_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , confidence_(0){}
+template <typename>
+PROTOBUF_CONSTEXPR HotwordResult::HotwordResult(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.hotword_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.confidence_)*/ 0
+
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct HotwordResultDefaultTypeInternal {
-  constexpr HotwordResultDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR HotwordResultDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~HotwordResultDefaultTypeInternal() {}
   union {
     HotwordResult _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT HotwordResultDefaultTypeInternal _HotwordResult_default_instance_;
-constexpr RawEmbedding::RawEmbedding(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : embedding_()
-  , _embedding_cached_byte_size_(){}
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HotwordResultDefaultTypeInternal _HotwordResult_default_instance_;
+template <typename>
+PROTOBUF_CONSTEXPR RawEmbedding::RawEmbedding(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.embedding_)*/ {}
+
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct RawEmbeddingDefaultTypeInternal {
-  constexpr RawEmbeddingDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR RawEmbeddingDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~RawEmbeddingDefaultTypeInternal() {}
   union {
     RawEmbedding _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT RawEmbeddingDefaultTypeInternal _RawEmbedding_default_instance_;
-constexpr HotwordEmbedding::HotwordEmbedding(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : hotword_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , embedding_(nullptr){}
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RawEmbeddingDefaultTypeInternal _RawEmbedding_default_instance_;
+template <typename>
+PROTOBUF_CONSTEXPR HotwordEmbedding::HotwordEmbedding(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.hotword_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.embedding_)*/nullptr} {}
 struct HotwordEmbeddingDefaultTypeInternal {
-  constexpr HotwordEmbeddingDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR HotwordEmbeddingDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~HotwordEmbeddingDefaultTypeInternal() {}
   union {
     HotwordEmbedding _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT HotwordEmbeddingDefaultTypeInternal _HotwordEmbedding_default_instance_;
-constexpr Result::Result(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : msg_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HotwordEmbeddingDefaultTypeInternal _HotwordEmbedding_default_instance_;
+template <typename>
+PROTOBUF_CONSTEXPR Result::Result(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.msg_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ResultDefaultTypeInternal {
-  constexpr ResultDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ResultDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~ResultDefaultTypeInternal() {}
   union {
     Result _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ResultDefaultTypeInternal _Result_default_instance_;
-constexpr HotwordFileName::HotwordFileName(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : hotword_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , filename_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ResultDefaultTypeInternal _Result_default_instance_;
+template <typename>
+PROTOBUF_CONSTEXPR HotwordFileName::HotwordFileName(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.hotword_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.filename_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct HotwordFileNameDefaultTypeInternal {
-  constexpr HotwordFileNameDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR HotwordFileNameDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~HotwordFileNameDefaultTypeInternal() {}
   union {
     HotwordFileName _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT HotwordFileNameDefaultTypeInternal _HotwordFileName_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HotwordFileNameDefaultTypeInternal _HotwordFileName_default_instance_;
 }  // namespace rero
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_hotword_2eproto[5];
-static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_hotword_2eproto = nullptr;
-static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_hotword_2eproto = nullptr;
+static ::_pb::Metadata file_level_metadata_hotword_2eproto[5];
+static constexpr const ::_pb::EnumDescriptor**
+    file_level_enum_descriptors_hotword_2eproto = nullptr;
+static constexpr const ::_pb::ServiceDescriptor**
+    file_level_service_descriptors_hotword_2eproto = nullptr;
+const ::uint32_t TableStruct_hotword_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(
+    protodesc_cold) = {
+    ~0u,  // no _has_bits_
+    PROTOBUF_FIELD_OFFSET(::rero::HotwordResult, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::rero::HotwordResult, _impl_.hotword_),
+    PROTOBUF_FIELD_OFFSET(::rero::HotwordResult, _impl_.confidence_),
+    ~0u,  // no _has_bits_
+    PROTOBUF_FIELD_OFFSET(::rero::RawEmbedding, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::rero::RawEmbedding, _impl_.embedding_),
+    PROTOBUF_FIELD_OFFSET(::rero::HotwordEmbedding, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::rero::HotwordEmbedding, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::rero::HotwordEmbedding, _impl_.hotword_),
+    PROTOBUF_FIELD_OFFSET(::rero::HotwordEmbedding, _impl_.embedding_),
+    ~0u,
+    0,
+    ~0u,  // no _has_bits_
+    PROTOBUF_FIELD_OFFSET(::rero::Result, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::rero::Result, _impl_.msg_),
+    ~0u,  // no _has_bits_
+    PROTOBUF_FIELD_OFFSET(::rero::HotwordFileName, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::rero::HotwordFileName, _impl_.hotword_),
+    PROTOBUF_FIELD_OFFSET(::rero::HotwordFileName, _impl_.filename_),
+};
 
-const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_hotword_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::rero::HotwordResult, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::rero::HotwordResult, hotword_),
-  PROTOBUF_FIELD_OFFSET(::rero::HotwordResult, confidence_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::rero::RawEmbedding, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::rero::RawEmbedding, embedding_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::rero::HotwordEmbedding, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::rero::HotwordEmbedding, hotword_),
-  PROTOBUF_FIELD_OFFSET(::rero::HotwordEmbedding, embedding_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::rero::Result, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::rero::Result, msg_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::rero::HotwordFileName, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::rero::HotwordFileName, hotword_),
-  PROTOBUF_FIELD_OFFSET(::rero::HotwordFileName, filename_),
-};
-static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, -1, sizeof(::rero::HotwordResult)},
-  { 7, -1, sizeof(::rero::RawEmbedding)},
-  { 13, -1, sizeof(::rero::HotwordEmbedding)},
-  { 20, -1, sizeof(::rero::Result)},
-  { 26, -1, sizeof(::rero::HotwordFileName)},
+static const ::_pbi::MigrationSchema
+    schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+        { 0, -1, -1, sizeof(::rero::HotwordResult)},
+        { 10, -1, -1, sizeof(::rero::RawEmbedding)},
+        { 19, 29, -1, sizeof(::rero::HotwordEmbedding)},
+        { 31, -1, -1, sizeof(::rero::Result)},
+        { 40, -1, -1, sizeof(::rero::HotwordFileName)},
 };
 
-static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::rero::_HotwordResult_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::rero::_RawEmbedding_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::rero::_HotwordEmbedding_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::rero::_Result_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::rero::_HotwordFileName_default_instance_),
+static const ::_pb::Message* const file_default_instances[] = {
+    &::rero::_HotwordResult_default_instance_._instance,
+    &::rero::_RawEmbedding_default_instance_._instance,
+    &::rero::_HotwordEmbedding_default_instance_._instance,
+    &::rero::_Result_default_instance_._instance,
+    &::rero::_HotwordFileName_default_instance_._instance,
+};
+const char descriptor_table_protodef_hotword_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+    "\n\rhotword.proto\022\004rero\032\013audio.proto\"4\n\rHo"
+    "twordResult\022\017\n\007hotword\030\001 \001(\t\022\022\n\nconfiden"
+    "ce\030\002 \001(\002\"!\n\014RawEmbedding\022\021\n\tembedding\030\001 "
+    "\003(\002\"J\n\020HotwordEmbedding\022\017\n\007hotword\030\001 \001(\t"
+    "\022%\n\tembedding\030\002 \001(\0132\022.rero.RawEmbedding\""
+    "\025\n\006Result\022\013\n\003msg\030\001 \001(\t\"4\n\017HotwordFileNam"
+    "e\022\017\n\007hotword\030\001 \001(\t\022\020\n\010filename\030\002 \001(\t2\271\002\n"
+    "\020HotwordDetection\022<\n\022StartHotwordStream\022"
+    "\013.rero.Audio\032\023.rero.HotwordResult\"\000(\0010\001\022"
+    "8\n\020RecognizeHotword\022\013.rero.Audio\032\023.rero."
+    "HotwordResult\"\000(\001\0223\n\014GetEmbedding\022\013.rero"
+    ".Audio\032\022.rero.RawEmbedding\"\000(\001\022\?\n\025AddEmb"
+    "eddingToHotword\022\026.rero.HotwordEmbedding\032"
+    "\014.rero.Result\"\000\0227\n\016PersistHotword\022\025.rero"
+    ".HotwordFileName\032\014.rero.Result\"\000b\006proto3"
+};
+static const ::_pbi::DescriptorTable* const descriptor_table_hotword_2eproto_deps[1] =
+    {
+        &::descriptor_table_audio_2eproto,
+};
+static ::absl::once_flag descriptor_table_hotword_2eproto_once;
+const ::_pbi::DescriptorTable descriptor_table_hotword_2eproto = {
+    false,
+    false,
+    600,
+    descriptor_table_protodef_hotword_2eproto,
+    "hotword.proto",
+    &descriptor_table_hotword_2eproto_once,
+    descriptor_table_hotword_2eproto_deps,
+    1,
+    5,
+    schemas,
+    file_default_instances,
+    TableStruct_hotword_2eproto::offsets,
+    file_level_metadata_hotword_2eproto,
+    file_level_enum_descriptors_hotword_2eproto,
+    file_level_service_descriptors_hotword_2eproto,
 };
 
-const char descriptor_table_protodef_hotword_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\rhotword.proto\022\004rero\032\013audio.proto\"4\n\rHo"
-  "twordResult\022\017\n\007hotword\030\001 \001(\t\022\022\n\nconfiden"
-  "ce\030\002 \001(\002\"!\n\014RawEmbedding\022\021\n\tembedding\030\001 "
-  "\003(\002\"J\n\020HotwordEmbedding\022\017\n\007hotword\030\001 \001(\t"
-  "\022%\n\tembedding\030\002 \001(\0132\022.rero.RawEmbedding\""
-  "\025\n\006Result\022\013\n\003msg\030\001 \001(\t\"4\n\017HotwordFileNam"
-  "e\022\017\n\007hotword\030\001 \001(\t\022\020\n\010filename\030\002 \001(\t2\271\002\n"
-  "\020HotwordDetection\022<\n\022StartHotwordStream\022"
-  "\013.rero.Audio\032\023.rero.HotwordResult\"\000(\0010\001\022"
-  "8\n\020RecognizeHotword\022\013.rero.Audio\032\023.rero."
-  "HotwordResult\"\000(\001\0223\n\014GetEmbedding\022\013.rero"
-  ".Audio\032\022.rero.RawEmbedding\"\000(\001\022\?\n\025AddEmb"
-  "eddingToHotword\022\026.rero.HotwordEmbedding\032"
-  "\014.rero.Result\"\000\0227\n\016PersistHotword\022\025.rero"
-  ".HotwordFileName\032\014.rero.Result\"\000b\006proto3"
-  ;
-static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_hotword_2eproto_deps[1] = {
-  &::descriptor_table_audio_2eproto,
-};
-static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_hotword_2eproto_once;
-const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_hotword_2eproto = {
-  false, false, 600, descriptor_table_protodef_hotword_2eproto, "hotword.proto", 
-  &descriptor_table_hotword_2eproto_once, descriptor_table_hotword_2eproto_deps, 1, 5,
-  schemas, file_default_instances, TableStruct_hotword_2eproto::offsets,
-  file_level_metadata_hotword_2eproto, file_level_enum_descriptors_hotword_2eproto, file_level_service_descriptors_hotword_2eproto,
-};
-PROTOBUF_ATTRIBUTE_WEAK ::PROTOBUF_NAMESPACE_ID::Metadata
-descriptor_table_hotword_2eproto_metadata_getter(int index) {
-  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_hotword_2eproto);
-  return descriptor_table_hotword_2eproto.file_level_metadata[index];
+// This function exists to be marked as weak.
+// It can significantly speed up compilation by breaking up LLVM's SCC
+// in the .pb.cc translation units. Large translation units see a
+// reduction of more than 35% of walltime for optimized builds. Without
+// the weak attribute all the messages in the file, including all the
+// vtables and everything they use become part of the same SCC through
+// a cycle like:
+// GetMetadata -> descriptor table -> default instances ->
+//   vtables -> GetMetadata
+// By adding a weak function here we break the connection from the
+// individual vtables back into the descriptor table.
+PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_hotword_2eproto_getter() {
+  return &descriptor_table_hotword_2eproto;
 }
-
 // Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_hotword_2eproto(&descriptor_table_hotword_2eproto);
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY2
+static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_hotword_2eproto(&descriptor_table_hotword_2eproto);
 namespace rero {
-
 // ===================================================================
 
 class HotwordResult::_Internal {
@@ -182,198 +257,209 @@ class HotwordResult::_Internal {
 
 HotwordResult::HotwordResult(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
-  SharedCtor();
-  RegisterArenaDtor(arena);
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:rero.HotwordResult)
 }
 HotwordResult::HotwordResult(const HotwordResult& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  HotwordResult* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.hotword_) {}
+
+    , decltype(_impl_.confidence_) {}
+
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  hotword_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.hotword_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.hotword_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_hotword().empty()) {
-    hotword_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_hotword(), 
-      GetArena());
+    _this->_impl_.hotword_.Set(from._internal_hotword(), _this->GetArenaForAllocation());
   }
-  confidence_ = from.confidence_;
+  _this->_impl_.confidence_ = from._impl_.confidence_;
   // @@protoc_insertion_point(copy_constructor:rero.HotwordResult)
 }
 
-void HotwordResult::SharedCtor() {
-hotword_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-confidence_ = 0;
+inline void HotwordResult::SharedCtor(::_pb::Arena* arena) {
+  (void)arena;
+  new (&_impl_) Impl_{
+      decltype(_impl_.hotword_) {}
+
+    , decltype(_impl_.confidence_) { 0 }
+
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.hotword_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.hotword_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 HotwordResult::~HotwordResult() {
   // @@protoc_insertion_point(destructor:rero.HotwordResult)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-void HotwordResult::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
-  hotword_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+inline void HotwordResult::SharedDtor() {
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.hotword_.Destroy();
 }
 
-void HotwordResult::ArenaDtor(void* object) {
-  HotwordResult* _this = reinterpret_cast< HotwordResult* >(object);
-  (void)_this;
-}
-void HotwordResult::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void HotwordResult::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void HotwordResult::Clear() {
 // @@protoc_insertion_point(message_clear_start:rero.HotwordResult)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  hotword_.ClearToEmpty();
-  confidence_ = 0;
+  _impl_.hotword_.ClearToEmpty();
+  _impl_.confidence_ = 0;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* HotwordResult::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* HotwordResult::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
+    ::uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string hotword = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_hotword();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "rero.HotwordResult.hotword"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else goto handle_unusual;
+          CHK_(::_pbi::VerifyUTF8(str, "rero.HotwordResult.hotword"));
+        } else {
+          goto handle_unusual;
+        }
         continue;
       // float confidence = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 21)) {
-          confidence_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 21)) {
+          _impl_.confidence_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
+        } else {
+          goto handle_unusual;
         }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
         continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* HotwordResult::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* HotwordResult::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:rero.HotwordResult)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // string hotword = 1;
-  if (this->hotword().size() > 0) {
+  if (!this->_internal_hotword().empty()) {
+    const std::string& _s = this->_internal_hotword();
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_hotword().data(), static_cast<int>(this->_internal_hotword().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "rero.HotwordResult.hotword");
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_hotword(), target);
+        _s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE, "rero.HotwordResult.hotword");
+    target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
   // float confidence = 2;
-  if (!(this->confidence() <= 0 && this->confidence() >= 0)) {
+  static_assert(sizeof(::uint32_t) == sizeof(float), "Code assumes ::uint32_t and float are the same size.");
+  float tmp_confidence = this->_internal_confidence();
+  ::uint32_t raw_confidence;
+  memcpy(&raw_confidence, &tmp_confidence, sizeof(tmp_confidence));
+  if (raw_confidence != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(2, this->_internal_confidence(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(
+        2, this->_internal_confidence(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:rero.HotwordResult)
   return target;
 }
 
-size_t HotwordResult::ByteSizeLong() const {
+::size_t HotwordResult::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:rero.HotwordResult)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // string hotword = 1;
-  if (this->hotword().size() > 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_hotword());
+  if (!this->_internal_hotword().empty()) {
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                    this->_internal_hotword());
   }
 
   // float confidence = 2;
-  if (!(this->confidence() <= 0 && this->confidence() >= 0)) {
-    total_size += 1 + 4;
+  static_assert(sizeof(::uint32_t) == sizeof(float), "Code assumes ::uint32_t and float are the same size.");
+  float tmp_confidence = this->_internal_confidence();
+  ::uint32_t raw_confidence;
+  memcpy(&raw_confidence, &tmp_confidence, sizeof(tmp_confidence));
+  if (raw_confidence != 0) {
+    total_size += 5;
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-void HotwordResult::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:rero.HotwordResult)
-  GOOGLE_DCHECK_NE(&from, this);
-  const HotwordResult* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<HotwordResult>(
-          &from);
-  if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:rero.HotwordResult)
-    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:rero.HotwordResult)
-    MergeFrom(*source);
-  }
-}
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData HotwordResult::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    HotwordResult::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*HotwordResult::GetClassData() const { return &_class_data_; }
 
-void HotwordResult::MergeFrom(const HotwordResult& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:rero.HotwordResult)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+
+void HotwordResult::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<HotwordResult*>(&to_msg);
+  auto& from = static_cast<const HotwordResult&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:rero.HotwordResult)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.hotword().size() > 0) {
-    _internal_set_hotword(from._internal_hotword());
+  if (!from._internal_hotword().empty()) {
+    _this->_internal_set_hotword(from._internal_hotword());
   }
-  if (!(from.confidence() <= 0 && from.confidence() >= 0)) {
-    _internal_set_confidence(from._internal_confidence());
+  static_assert(sizeof(::uint32_t) == sizeof(float), "Code assumes ::uint32_t and float are the same size.");
+  float tmp_confidence = from._internal_confidence();
+  ::uint32_t raw_confidence;
+  memcpy(&raw_confidence, &tmp_confidence, sizeof(tmp_confidence));
+  if (raw_confidence != 0) {
+    _this->_internal_set_confidence(from._internal_confidence());
   }
-}
-
-void HotwordResult::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:rero.HotwordResult)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void HotwordResult::CopyFrom(const HotwordResult& from) {
@@ -389,16 +475,20 @@ bool HotwordResult::IsInitialized() const {
 
 void HotwordResult::InternalSwap(HotwordResult* other) {
   using std::swap;
-  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
-  hotword_.Swap(&other->hotword_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  swap(confidence_, other->confidence_);
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.hotword_, lhs_arena,
+                                       &other->_impl_.hotword_, rhs_arena);
+
+  swap(_impl_.confidence_, other->_impl_.confidence_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata HotwordResult::GetMetadata() const {
-  return GetMetadataStatic();
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_hotword_2eproto_getter, &descriptor_table_hotword_2eproto_once,
+      file_level_metadata_hotword_2eproto[0]);
 }
-
-
 // ===================================================================
 
 class RawEmbedding::_Internal {
@@ -406,95 +496,104 @@ class RawEmbedding::_Internal {
 };
 
 RawEmbedding::RawEmbedding(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
-  embedding_(arena) {
-  SharedCtor();
-  RegisterArenaDtor(arena);
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:rero.RawEmbedding)
 }
 RawEmbedding::RawEmbedding(const RawEmbedding& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      embedding_(from.embedding_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  RawEmbedding* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.embedding_) { from._impl_.embedding_ }
+
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:rero.RawEmbedding)
 }
 
-void RawEmbedding::SharedCtor() {
+inline void RawEmbedding::SharedCtor(::_pb::Arena* arena) {
+  (void)arena;
+  new (&_impl_) Impl_{
+      decltype(_impl_.embedding_) { arena }
+
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 RawEmbedding::~RawEmbedding() {
   // @@protoc_insertion_point(destructor:rero.RawEmbedding)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-void RawEmbedding::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
+inline void RawEmbedding::SharedDtor() {
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.embedding_.~RepeatedField();
 }
 
-void RawEmbedding::ArenaDtor(void* object) {
-  RawEmbedding* _this = reinterpret_cast< RawEmbedding* >(object);
-  (void)_this;
-}
-void RawEmbedding::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void RawEmbedding::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void RawEmbedding::Clear() {
 // @@protoc_insertion_point(message_clear_start:rero.RawEmbedding)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  embedding_.Clear();
+  _internal_mutable_embedding()->Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* RawEmbedding::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* RawEmbedding::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
+    ::uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated float embedding = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedFloatParser(_internal_mutable_embedding(), ptr, ctx);
           CHK_(ptr);
-        } else if (static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 13) {
+        } else if (static_cast<::uint8_t>(tag) == 13) {
           _internal_add_embedding(::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr));
           ptr += sizeof(float);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
+        } else {
+          goto handle_unusual;
         }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
         continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* RawEmbedding::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* RawEmbedding::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:rero.RawEmbedding)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // repeated float embedding = 1;
@@ -503,75 +602,54 @@ failure:
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:rero.RawEmbedding)
   return target;
 }
 
-size_t RawEmbedding::ByteSizeLong() const {
+::size_t RawEmbedding::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:rero.RawEmbedding)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated float embedding = 1;
   {
-    unsigned int count = static_cast<unsigned int>(this->_internal_embedding_size());
-    size_t data_size = 4UL * count;
-    if (data_size > 0) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-            static_cast<::PROTOBUF_NAMESPACE_ID::int32>(data_size));
-    }
-    int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(data_size);
-    _embedding_cached_byte_size_.store(cached_size,
-                                    std::memory_order_relaxed);
-    total_size += data_size;
+    std::size_t data_size = std::size_t{4} *
+        ::_pbi::FromIntSize(this->_internal_embedding_size())
+    ;
+    std::size_t tag_size = data_size == 0
+        ? 0
+        : 1 + ::_pbi::WireFormatLite::Int32Size(
+                            static_cast<int32_t>(data_size))
+    ;
+    total_size += tag_size + data_size;
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-void RawEmbedding::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:rero.RawEmbedding)
-  GOOGLE_DCHECK_NE(&from, this);
-  const RawEmbedding* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<RawEmbedding>(
-          &from);
-  if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:rero.RawEmbedding)
-    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:rero.RawEmbedding)
-    MergeFrom(*source);
-  }
-}
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData RawEmbedding::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    RawEmbedding::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*RawEmbedding::GetClassData() const { return &_class_data_; }
 
-void RawEmbedding::MergeFrom(const RawEmbedding& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:rero.RawEmbedding)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+
+void RawEmbedding::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<RawEmbedding*>(&to_msg);
+  auto& from = static_cast<const RawEmbedding&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:rero.RawEmbedding)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  embedding_.MergeFrom(from.embedding_);
-}
-
-void RawEmbedding::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:rero.RawEmbedding)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+  _this->_impl_.embedding_.MergeFrom(from._impl_.embedding_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void RawEmbedding::CopyFrom(const RawEmbedding& from) {
@@ -587,232 +665,240 @@ bool RawEmbedding::IsInitialized() const {
 
 void RawEmbedding::InternalSwap(RawEmbedding* other) {
   using std::swap;
-  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
-  embedding_.InternalSwap(&other->embedding_);
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _impl_.embedding_.InternalSwap(&other->_impl_.embedding_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata RawEmbedding::GetMetadata() const {
-  return GetMetadataStatic();
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_hotword_2eproto_getter, &descriptor_table_hotword_2eproto_once,
+      file_level_metadata_hotword_2eproto[1]);
 }
-
-
 // ===================================================================
 
 class HotwordEmbedding::_Internal {
  public:
+  using HasBits = decltype(std::declval<HotwordEmbedding>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(HotwordEmbedding, _impl_._has_bits_);
   static const ::rero::RawEmbedding& embedding(const HotwordEmbedding* msg);
+  static void set_has_embedding(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
 };
 
 const ::rero::RawEmbedding&
 HotwordEmbedding::_Internal::embedding(const HotwordEmbedding* msg) {
-  return *msg->embedding_;
+  return *msg->_impl_.embedding_;
 }
 HotwordEmbedding::HotwordEmbedding(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
-  SharedCtor();
-  RegisterArenaDtor(arena);
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:rero.HotwordEmbedding)
 }
 HotwordEmbedding::HotwordEmbedding(const HotwordEmbedding& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  HotwordEmbedding* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.hotword_) {}
+
+    , decltype(_impl_.embedding_){nullptr}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  hotword_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.hotword_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.hotword_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_hotword().empty()) {
-    hotword_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_hotword(), 
-      GetArena());
+    _this->_impl_.hotword_.Set(from._internal_hotword(), _this->GetArenaForAllocation());
   }
-  if (from._internal_has_embedding()) {
-    embedding_ = new ::rero::RawEmbedding(*from.embedding_);
-  } else {
-    embedding_ = nullptr;
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.embedding_ = new ::rero::RawEmbedding(*from._impl_.embedding_);
   }
   // @@protoc_insertion_point(copy_constructor:rero.HotwordEmbedding)
 }
 
-void HotwordEmbedding::SharedCtor() {
-hotword_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-embedding_ = nullptr;
+inline void HotwordEmbedding::SharedCtor(::_pb::Arena* arena) {
+  (void)arena;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.hotword_) {}
+
+    , decltype(_impl_.embedding_){nullptr}
+  };
+  _impl_.hotword_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.hotword_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 HotwordEmbedding::~HotwordEmbedding() {
   // @@protoc_insertion_point(destructor:rero.HotwordEmbedding)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-void HotwordEmbedding::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
-  hotword_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (this != internal_default_instance()) delete embedding_;
+inline void HotwordEmbedding::SharedDtor() {
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.hotword_.Destroy();
+  if (this != internal_default_instance()) delete _impl_.embedding_;
 }
 
-void HotwordEmbedding::ArenaDtor(void* object) {
-  HotwordEmbedding* _this = reinterpret_cast< HotwordEmbedding* >(object);
-  (void)_this;
-}
-void HotwordEmbedding::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void HotwordEmbedding::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void HotwordEmbedding::Clear() {
 // @@protoc_insertion_point(message_clear_start:rero.HotwordEmbedding)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  hotword_.ClearToEmpty();
-  if (GetArena() == nullptr && embedding_ != nullptr) {
-    delete embedding_;
+  _impl_.hotword_.ClearToEmpty();
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    ABSL_DCHECK(_impl_.embedding_ != nullptr);
+    _impl_.embedding_->Clear();
   }
-  embedding_ = nullptr;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* HotwordEmbedding::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* HotwordEmbedding::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
+    ::uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string hotword = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_hotword();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "rero.HotwordEmbedding.hotword"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else goto handle_unusual;
+          CHK_(::_pbi::VerifyUTF8(str, "rero.HotwordEmbedding.hotword"));
+        } else {
+          goto handle_unusual;
+        }
         continue;
       // .rero.RawEmbedding embedding = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_embedding(), ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
+        } else {
+          goto handle_unusual;
         }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
         continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* HotwordEmbedding::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* HotwordEmbedding::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:rero.HotwordEmbedding)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // string hotword = 1;
-  if (this->hotword().size() > 0) {
+  if (!this->_internal_hotword().empty()) {
+    const std::string& _s = this->_internal_hotword();
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_hotword().data(), static_cast<int>(this->_internal_hotword().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "rero.HotwordEmbedding.hotword");
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_hotword(), target);
+        _s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE, "rero.HotwordEmbedding.hotword");
+    target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
+  cached_has_bits = _impl_._has_bits_[0];
   // .rero.RawEmbedding embedding = 2;
-  if (this->has_embedding()) {
-    target = stream->EnsureSpace(target);
+  if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        2, _Internal::embedding(this), target, stream);
+      InternalWriteMessage(2, _Internal::embedding(this),
+        _Internal::embedding(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:rero.HotwordEmbedding)
   return target;
 }
 
-size_t HotwordEmbedding::ByteSizeLong() const {
+::size_t HotwordEmbedding::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:rero.HotwordEmbedding)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // string hotword = 1;
-  if (this->hotword().size() > 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_hotword());
+  if (!this->_internal_hotword().empty()) {
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                    this->_internal_hotword());
   }
 
   // .rero.RawEmbedding embedding = 2;
-  if (this->has_embedding()) {
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *embedding_);
+        *_impl_.embedding_);
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-void HotwordEmbedding::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:rero.HotwordEmbedding)
-  GOOGLE_DCHECK_NE(&from, this);
-  const HotwordEmbedding* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<HotwordEmbedding>(
-          &from);
-  if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:rero.HotwordEmbedding)
-    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:rero.HotwordEmbedding)
-    MergeFrom(*source);
-  }
-}
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData HotwordEmbedding::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    HotwordEmbedding::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*HotwordEmbedding::GetClassData() const { return &_class_data_; }
 
-void HotwordEmbedding::MergeFrom(const HotwordEmbedding& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:rero.HotwordEmbedding)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+
+void HotwordEmbedding::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<HotwordEmbedding*>(&to_msg);
+  auto& from = static_cast<const HotwordEmbedding&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:rero.HotwordEmbedding)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.hotword().size() > 0) {
-    _internal_set_hotword(from._internal_hotword());
+  if (!from._internal_hotword().empty()) {
+    _this->_internal_set_hotword(from._internal_hotword());
   }
-  if (from.has_embedding()) {
-    _internal_mutable_embedding()->::rero::RawEmbedding::MergeFrom(from._internal_embedding());
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_internal_mutable_embedding()->::rero::RawEmbedding::MergeFrom(
+        from._internal_embedding());
   }
-}
-
-void HotwordEmbedding::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:rero.HotwordEmbedding)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void HotwordEmbedding::CopyFrom(const HotwordEmbedding& from) {
@@ -828,16 +914,20 @@ bool HotwordEmbedding::IsInitialized() const {
 
 void HotwordEmbedding::InternalSwap(HotwordEmbedding* other) {
   using std::swap;
-  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
-  hotword_.Swap(&other->hotword_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  swap(embedding_, other->embedding_);
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.hotword_, lhs_arena,
+                                       &other->_impl_.hotword_, rhs_arena);
+  swap(_impl_.embedding_, other->_impl_.embedding_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata HotwordEmbedding::GetMetadata() const {
-  return GetMetadataStatic();
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_hotword_2eproto_getter, &descriptor_table_hotword_2eproto_once,
+      file_level_metadata_hotword_2eproto[2]);
 }
-
-
 // ===================================================================
 
 class Result::_Internal {
@@ -846,174 +936,167 @@ class Result::_Internal {
 
 Result::Result(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
-  SharedCtor();
-  RegisterArenaDtor(arena);
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:rero.Result)
 }
 Result::Result(const Result& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  Result* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.msg_) {}
+
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  msg_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.msg_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.msg_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_msg().empty()) {
-    msg_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_msg(), 
-      GetArena());
+    _this->_impl_.msg_.Set(from._internal_msg(), _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:rero.Result)
 }
 
-void Result::SharedCtor() {
-msg_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+inline void Result::SharedCtor(::_pb::Arena* arena) {
+  (void)arena;
+  new (&_impl_) Impl_{
+      decltype(_impl_.msg_) {}
+
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.msg_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.msg_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 Result::~Result() {
   // @@protoc_insertion_point(destructor:rero.Result)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-void Result::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
-  msg_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+inline void Result::SharedDtor() {
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.msg_.Destroy();
 }
 
-void Result::ArenaDtor(void* object) {
-  Result* _this = reinterpret_cast< Result* >(object);
-  (void)_this;
-}
-void Result::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void Result::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void Result::Clear() {
 // @@protoc_insertion_point(message_clear_start:rero.Result)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  msg_.ClearToEmpty();
+  _impl_.msg_.ClearToEmpty();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* Result::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* Result::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
+    ::uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string msg = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_msg();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "rero.Result.msg"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
+          CHK_(::_pbi::VerifyUTF8(str, "rero.Result.msg"));
+        } else {
+          goto handle_unusual;
         }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
         continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* Result::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* Result::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:rero.Result)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // string msg = 1;
-  if (this->msg().size() > 0) {
+  if (!this->_internal_msg().empty()) {
+    const std::string& _s = this->_internal_msg();
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_msg().data(), static_cast<int>(this->_internal_msg().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "rero.Result.msg");
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_msg(), target);
+        _s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE, "rero.Result.msg");
+    target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:rero.Result)
   return target;
 }
 
-size_t Result::ByteSizeLong() const {
+::size_t Result::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:rero.Result)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // string msg = 1;
-  if (this->msg().size() > 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_msg());
+  if (!this->_internal_msg().empty()) {
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                    this->_internal_msg());
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-void Result::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:rero.Result)
-  GOOGLE_DCHECK_NE(&from, this);
-  const Result* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Result>(
-          &from);
-  if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:rero.Result)
-    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:rero.Result)
-    MergeFrom(*source);
-  }
-}
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Result::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    Result::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Result::GetClassData() const { return &_class_data_; }
 
-void Result::MergeFrom(const Result& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:rero.Result)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+
+void Result::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<Result*>(&to_msg);
+  auto& from = static_cast<const Result&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:rero.Result)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.msg().size() > 0) {
-    _internal_set_msg(from._internal_msg());
+  if (!from._internal_msg().empty()) {
+    _this->_internal_set_msg(from._internal_msg());
   }
-}
-
-void Result::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:rero.Result)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void Result::CopyFrom(const Result& from) {
@@ -1029,15 +1112,18 @@ bool Result::IsInitialized() const {
 
 void Result::InternalSwap(Result* other) {
   using std::swap;
-  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
-  msg_.Swap(&other->msg_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.msg_, lhs_arena,
+                                       &other->_impl_.msg_, rhs_arena);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata Result::GetMetadata() const {
-  return GetMetadataStatic();
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_hotword_2eproto_getter, &descriptor_table_hotword_2eproto_once,
+      file_level_metadata_hotword_2eproto[3]);
 }
-
-
 // ===================================================================
 
 class HotwordFileName::_Internal {
@@ -1046,211 +1132,212 @@ class HotwordFileName::_Internal {
 
 HotwordFileName::HotwordFileName(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
-  SharedCtor();
-  RegisterArenaDtor(arena);
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:rero.HotwordFileName)
 }
 HotwordFileName::HotwordFileName(const HotwordFileName& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  HotwordFileName* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.hotword_) {}
+
+    , decltype(_impl_.filename_) {}
+
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  hotword_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.hotword_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.hotword_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_hotword().empty()) {
-    hotword_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_hotword(), 
-      GetArena());
+    _this->_impl_.hotword_.Set(from._internal_hotword(), _this->GetArenaForAllocation());
   }
-  filename_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.filename_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.filename_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_filename().empty()) {
-    filename_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_filename(), 
-      GetArena());
+    _this->_impl_.filename_.Set(from._internal_filename(), _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:rero.HotwordFileName)
 }
 
-void HotwordFileName::SharedCtor() {
-hotword_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-filename_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+inline void HotwordFileName::SharedCtor(::_pb::Arena* arena) {
+  (void)arena;
+  new (&_impl_) Impl_{
+      decltype(_impl_.hotword_) {}
+
+    , decltype(_impl_.filename_) {}
+
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.hotword_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.hotword_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.filename_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.filename_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 HotwordFileName::~HotwordFileName() {
   // @@protoc_insertion_point(destructor:rero.HotwordFileName)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-void HotwordFileName::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
-  hotword_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  filename_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+inline void HotwordFileName::SharedDtor() {
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.hotword_.Destroy();
+  _impl_.filename_.Destroy();
 }
 
-void HotwordFileName::ArenaDtor(void* object) {
-  HotwordFileName* _this = reinterpret_cast< HotwordFileName* >(object);
-  (void)_this;
-}
-void HotwordFileName::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void HotwordFileName::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void HotwordFileName::Clear() {
 // @@protoc_insertion_point(message_clear_start:rero.HotwordFileName)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  hotword_.ClearToEmpty();
-  filename_.ClearToEmpty();
+  _impl_.hotword_.ClearToEmpty();
+  _impl_.filename_.ClearToEmpty();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* HotwordFileName::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* HotwordFileName::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
+    ::uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string hotword = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_hotword();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "rero.HotwordFileName.hotword"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else goto handle_unusual;
+          CHK_(::_pbi::VerifyUTF8(str, "rero.HotwordFileName.hotword"));
+        } else {
+          goto handle_unusual;
+        }
         continue;
       // string filename = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_filename();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "rero.HotwordFileName.filename"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
+          CHK_(::_pbi::VerifyUTF8(str, "rero.HotwordFileName.filename"));
+        } else {
+          goto handle_unusual;
         }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
         continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* HotwordFileName::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* HotwordFileName::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:rero.HotwordFileName)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // string hotword = 1;
-  if (this->hotword().size() > 0) {
+  if (!this->_internal_hotword().empty()) {
+    const std::string& _s = this->_internal_hotword();
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_hotword().data(), static_cast<int>(this->_internal_hotword().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "rero.HotwordFileName.hotword");
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_hotword(), target);
+        _s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE, "rero.HotwordFileName.hotword");
+    target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
   // string filename = 2;
-  if (this->filename().size() > 0) {
+  if (!this->_internal_filename().empty()) {
+    const std::string& _s = this->_internal_filename();
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_filename().data(), static_cast<int>(this->_internal_filename().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "rero.HotwordFileName.filename");
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_filename(), target);
+        _s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE, "rero.HotwordFileName.filename");
+    target = stream->WriteStringMaybeAliased(2, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:rero.HotwordFileName)
   return target;
 }
 
-size_t HotwordFileName::ByteSizeLong() const {
+::size_t HotwordFileName::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:rero.HotwordFileName)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // string hotword = 1;
-  if (this->hotword().size() > 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_hotword());
+  if (!this->_internal_hotword().empty()) {
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                    this->_internal_hotword());
   }
 
   // string filename = 2;
-  if (this->filename().size() > 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_filename());
+  if (!this->_internal_filename().empty()) {
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                    this->_internal_filename());
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-void HotwordFileName::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:rero.HotwordFileName)
-  GOOGLE_DCHECK_NE(&from, this);
-  const HotwordFileName* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<HotwordFileName>(
-          &from);
-  if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:rero.HotwordFileName)
-    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:rero.HotwordFileName)
-    MergeFrom(*source);
-  }
-}
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData HotwordFileName::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    HotwordFileName::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*HotwordFileName::GetClassData() const { return &_class_data_; }
 
-void HotwordFileName::MergeFrom(const HotwordFileName& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:rero.HotwordFileName)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+
+void HotwordFileName::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<HotwordFileName*>(&to_msg);
+  auto& from = static_cast<const HotwordFileName&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:rero.HotwordFileName)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.hotword().size() > 0) {
-    _internal_set_hotword(from._internal_hotword());
+  if (!from._internal_hotword().empty()) {
+    _this->_internal_set_hotword(from._internal_hotword());
   }
-  if (from.filename().size() > 0) {
-    _internal_set_filename(from._internal_filename());
+  if (!from._internal_filename().empty()) {
+    _this->_internal_set_filename(from._internal_filename());
   }
-}
-
-void HotwordFileName::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:rero.HotwordFileName)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void HotwordFileName::CopyFrom(const HotwordFileName& from) {
@@ -1266,35 +1353,43 @@ bool HotwordFileName::IsInitialized() const {
 
 void HotwordFileName::InternalSwap(HotwordFileName* other) {
   using std::swap;
-  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
-  hotword_.Swap(&other->hotword_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  filename_.Swap(&other->filename_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.hotword_, lhs_arena,
+                                       &other->_impl_.hotword_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.filename_, lhs_arena,
+                                       &other->_impl_.filename_, rhs_arena);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata HotwordFileName::GetMetadata() const {
-  return GetMetadataStatic();
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_hotword_2eproto_getter, &descriptor_table_hotword_2eproto_once,
+      file_level_metadata_hotword_2eproto[4]);
 }
-
-
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace rero
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::rero::HotwordResult* Arena::CreateMaybeMessage< ::rero::HotwordResult >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::rero::HotwordResult*
+Arena::CreateMaybeMessage< ::rero::HotwordResult >(Arena* arena) {
   return Arena::CreateMessageInternal< ::rero::HotwordResult >(arena);
 }
-template<> PROTOBUF_NOINLINE ::rero::RawEmbedding* Arena::CreateMaybeMessage< ::rero::RawEmbedding >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::rero::RawEmbedding*
+Arena::CreateMaybeMessage< ::rero::RawEmbedding >(Arena* arena) {
   return Arena::CreateMessageInternal< ::rero::RawEmbedding >(arena);
 }
-template<> PROTOBUF_NOINLINE ::rero::HotwordEmbedding* Arena::CreateMaybeMessage< ::rero::HotwordEmbedding >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::rero::HotwordEmbedding*
+Arena::CreateMaybeMessage< ::rero::HotwordEmbedding >(Arena* arena) {
   return Arena::CreateMessageInternal< ::rero::HotwordEmbedding >(arena);
 }
-template<> PROTOBUF_NOINLINE ::rero::Result* Arena::CreateMaybeMessage< ::rero::Result >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::rero::Result*
+Arena::CreateMaybeMessage< ::rero::Result >(Arena* arena) {
   return Arena::CreateMessageInternal< ::rero::Result >(arena);
 }
-template<> PROTOBUF_NOINLINE ::rero::HotwordFileName* Arena::CreateMaybeMessage< ::rero::HotwordFileName >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::rero::HotwordFileName*
+Arena::CreateMaybeMessage< ::rero::HotwordFileName >(Arena* arena) {
   return Arena::CreateMessageInternal< ::rero::HotwordFileName >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"
