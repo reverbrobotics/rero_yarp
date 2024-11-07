@@ -1,21 +1,51 @@
-cmake_minimum_required(VERSION 3.12)
-set(KEYWORD reroRemoteInterface)
-set(NAME_VENV ${KEYWORD}_venv)
-project($KEYWORD)
+# Copyright: (C) Robotics Brain and Cognitive Sciences (RBCS) - Istituto Italiano di Tecnologia
+# Authors: Luca Garello
+# CopyPolicy: Released under the terms of the GNU GPL v2.0.
 
-set(PROGRAM_PERMISSIONS_DEFAULT
-        OWNER_WRITE OWNER_READ OWNER_EXECUTE
-        GROUP_READ GROUP_EXECUTE
-        WORLD_READ WORLD_EXECUTE)
+# source di ogni cartella, ogni cartella figlio (modules) ha un file .sh che attiva il venv (ereditato) e poi esegue il file .py
+set(MODULE_NAME reroRemoteInterface)
 
-# Find Python and Virtualenv.
-find_program(VIRTUALENV virtualenv)
+message("Installing ${MODULE_NAME}")
 
-if(NOT VIRTUALENV)
-    message(FATAL_ERROR "Could not find `virtualenv` in PATH")
-endif()
+# attach ".sh" to the end of the module name
+set(PATH_TO_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/reroRemoteInterface.py)
+#set(PATH_TO_VENV path/to/venv) # inherited from parent CMakeLists.txt
 
-set(VIRTUALENV ${VIRTUALENV})
+## Create a .sh file that activate the shared virtual environment and run the module ##
+
+# Set the name of the script file to be generated with extension ".sh"
+set(SCRIPT_FILE_NAME ${MODULE_NAME})
+
+# Set the command to activate the virtual environment and run the Python script
+set(SCRIPT_CONTENT "#!/bin/bash\n\n# Function to terminate the child process when the bash father is terminated \nterminate_child_process() {\n    kill $PID\n}\n\n# Catch the quitting signal and send it to the child process\ntrap terminate_child_process EXIT\n# Activate virtual env\nsource ${PATH_TO_VENV}/bin/activate\n# Run python script\npython3 ${PATH_TO_SCRIPT} \"$@\"  &\nPID=$!\n\n# Wait for the python process to end\nwait $PID")
+
+# Generate the script file
+file(WRITE ${CMAKE_BINARY_DIR}/bin/${SCRIPT_FILE_NAME} ${SCRIPT_CONTENT})
+
+# Make the script file executable
+execute_process(COMMAND chmod +x ${SCRIPT_FILE_NAME})
+
+# Output instructions to the user
+message("Your ${SCRIPT_FILE_NAME} script has been created. You can now run it from terminal or yarpmanager.")
+
+
+find_package(ICUBcontrib REQUIRED)
+include(ICUBcontribHelpers)
+include(ICUBcontribOptions)
+icubcontrib_set_default_prefix()
+
+SET(CMAKE_MODULE_PATH ${ICUB_MODULE_PATH} ${CMAKE_MODULE_PATH})
+
+#print CMAKE_MODULE_PATH
+message(STATUS "CMAKE_MODULE_PATH: " ${CMAKE_MODULE_PATH})
+
+# print CMAKE_INSTALL_PREFIX
+message(STATUS "CMAKE_INSTALL_PREFIX: " ${CMAKE_INSTALL_PREFIX})
+
+
+#################################
+message(STATUS "Installing ${MODULE_NAME} in ${ICUBcontrib_DIR}/bin/${SCRIPT_FILE_NAME}")
+
 
 # Find Yarp and iCubCONTRIB packages
 find_package(YARP  REQUIRED)
@@ -24,38 +54,13 @@ list(APPEND CMAKE_MODULE_PATH ${ICUBCONTRIB_MODULE_PATH})
 include(ICUBcontribHelpers)
 include(ICUBcontribOptions)
 
+
 icubcontrib_set_default_prefix()
 set(ICUB_APPLICATIONS_PREFIX "$ENV{ICUB_ROOT}" CACHE PATH "Application path prefix")
 
 
-# Generate the virtualenv and ensure it's up to date.
-add_custom_command(
-        OUTPUT ${NAME_VENV}
-        COMMAND ${VIRTUALENV} -p /usr/bin/python3 ${NAME_VENV}
-)
-add_custom_command(
-        OUTPUT requirements
-        DEPENDS ${NAME_VENV}
-        COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/requirements.txt  ${CMAKE_CURRENT_BINARY_DIR}/requirements.txt
-        COMMAND ./${NAME_VENV}/bin/pip install -r requirements.txt
-)
-
-# Generate the binary using pyinstaller and put the binary in the bin folder
-add_custom_command(
-        OUTPUT binary
-        DEPENDS ${NAME_VENV} requirements
-        COMMAND ./${NAME_VENV}/bin/pyinstaller  ${CMAKE_CURRENT_SOURCE_DIR}/reroRemoteInterface.spec --distpath bin
-
-)
-
-
-# Custom targets for CMake
-# Create a virutal-env and install all requirements
-add_custom_target(build-python_${KEYWORD}  ALL
-        DEPENDS binary
-        SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/requirements.txt
-        )
+install(FILES ${CMAKE_BINARY_DIR}/bin/${SCRIPT_FILE_NAME} PERMISSIONS ${PROGRAM_PERMISSIONS_DEFAULT} DESTINATION bin)
 
 
 
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/bin/${KEYWORD} PERMISSIONS ${PROGRAM_PERMISSIONS_DEFAULT} DESTINATION bin)
+

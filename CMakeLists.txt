@@ -60,7 +60,7 @@ include(ICUBcontribHelpers)
 
 ############################################################
 include(FetchContent)
-#add_subdirectory( pythonScripts)
+add_subdirectory( pythonScripts)
 
 FetchContent_Declare(
         gRPC

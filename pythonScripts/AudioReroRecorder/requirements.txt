@@ -1,5 +1,0 @@
-setuptools==46.2.0
-pyinstaller==4.5.1
-grpcio==1.37.1
-grpcio-tools==1.37.1
-wave==0.0.2
